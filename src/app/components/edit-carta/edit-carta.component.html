@@ -1,1 +1,52 @@
-<h2>Modificar Carta</h2>
+<div>
+    <div>
+        <h2>Modificar Carta</h2>
+        <p>Añade, modifica y elimina productos</p>
+        <button (click)="createDishes()">+ Añadir Producto</button>
+    </div>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (dishes of editCarta(); track dishes._id) {
+                <tr>
+                    <td>
+                        <input type="text" [(ngModel)]="dishes.name">
+                    </td>
+                    <td>
+                        <input type="text" [(ngModel)]="dishes.description">
+                    </td>
+                    <td>
+                        <input type="number" [(ngModel)]="dishes.price">
+                    </td>
+                    <td>
+                        <select [(ngModel)]="dishes.category">
+                            <option value="entrantes">Entrantes</option>
+                            <option value="burguers">Burguers</option>
+                            <option value="brasa">Brasa</option>
+                            <option value="postres">Postres</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button (click)="updateDishes(dishes)">💾</button>
+                        <button (click)="deleteDishes(dishes._id)">🗑️</button>
+                    </td>
+                </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="5">Cargando productos...</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
