@@ -4,7 +4,10 @@
 <div>
   <a routerLink="/register">Register</a>
 </div>
-<div>
-  <a routerLink="/edit-carta">Editar Carta</a>
-</div>
+@if (isAdminIn()){
+
+  <div>
+    <a routerLink="/edit-carta">Editar Carta</a>
+  </div>
+}
 <router-outlet></router-outlet>

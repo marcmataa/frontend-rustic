@@ -2,7 +2,7 @@
     <div>
         <h2>Modificar Carta</h2>
         <p>Añade, modifica y elimina productos</p>
-        <button (click)="createDishes()">+ Añadir Producto</button>
+       
     </div>
 
     <div>
@@ -17,6 +17,29 @@
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td>
+                        <input type="text" [(ngModel)]="newDish.name" placeholder="Nuevo nombre...">
+                    </td>
+                    <td>
+                        <input type="text" [(ngModel)]="newDish.description" placeholder="Nueva descripción...">
+                    </td>
+                    <td>
+                        <input type="number" [(ngModel)]="newDish.price">
+                    </td>
+                    <td>
+                        <select [(ngModel)]="newDish.category">
+                            <option value="entrantes">Entrantes</option>
+                            <option value="burguers">Burguers</option>
+                            <option value="brasa">Brasa</option>
+                            <option value="postres">Postres</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button (click)="createDishes(newDish)">➕ Guardar Nuevo</button>
+                    </td>
+                </tr>
+
                 @for (dishes of editCarta(); track dishes._id) {
                 <tr>
                     <td>
@@ -37,14 +60,14 @@
                         </select>
                     </td>
                     <td>
-                        <button (click)="updateDishes(dishes)">💾</button>
-                        <button (click)="deleteDishes(dishes._id)">🗑️</button>
+                        <button (click)="updateDishes(dishes)">💾 Guardar</button>
+                        <button (click)="deleteDishes(dishes)">🗑️ Eliminar</button>
                     </td>
                 </tr>
                 } @empty {
-                    <tr>
-                        <td colspan="5">Cargando productos...</td>
-                    </tr>
+                <tr>
+                    <td colspan="5">Cargando productos...</td>
+                </tr>
                 }
             </tbody>
         </table>

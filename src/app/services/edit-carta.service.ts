@@ -25,7 +25,8 @@ export class EditCartaService {
       throw e;
     }
   }
-  async updateDish(id: String, updatedData: any) {
+
+  async updateDish(id: string, updatedData: any) {
     const config = {
       method: 'put',
       url: `carta/update/${id}`,
@@ -41,6 +42,41 @@ export class EditCartaService {
     } catch (e) {
       console.log('Error en el servicio: ', e);
       throw e;
+    }
+  }
+  async deleteDishes(id: string){
+    try{
+
+      const config = {
+        method: 'delete',
+        url: `carta/delete/${id}`,
+        data:''
+      };
+      const response = await api.request(config);
+      
+      await this.getCarta();
+      console.log('Datos en el servicio al eliminar: ', this.editCartaSignal())
+      return response.data;
+    } catch (e){
+      console.log('Error en el servicio al eliminar: ', e)
+      throw (e)
+    }
+  }
+  async createDishes(createData: any){
+    try {
+      const config = {
+        method: 'post',
+        url: 'carta/create',
+        data: createData
+      }
+      const response = await api.request(config);
+
+      await this.getCarta();
+      console.log('Datos en el servicio al crear: ', this.editCartaSignal())
+      return response.data;
+    } catch (e){
+      console.log('Error en el servicio al crear: ', e);
+      throw(e)
     }
   }
 }

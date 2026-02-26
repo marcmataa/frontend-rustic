@@ -13,7 +13,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   // Con el contructor podemos traer la variable AdminService que hemos creado en los services para asi poder usar el isAdmin en la aplicación.
-  constructor(private admin: AdminService, private router: Router) {}
+  constructor(
+    private admin: AdminService,
+    private router: Router,
+  ) {}
   email = signal('');
   password = signal('');
   // El onSubmit sirve para cuando se le da la accion de entrar con el boton
@@ -37,20 +40,26 @@ export class LoginComponent {
     api
       .request(config)
       .then((response) => {
-        console.log("Usuario logueado con exito")
+        console.log('Usuario logueado con exito');
         const UserData = response.data;
+
         console.log('Datos recibidos del Back:', UserData);
+
         const token = UserData.data.token;
         const userRole = UserData.data.user.role;
         // Si el usuario tiene token decimos que isAdmin es true y almacenamos el token en el localStorage
         if (token) {
-         this.admin.isAdmin.set(userRole === 'admin');
+          this.admin.isAdmin.set(userRole === 'admin');
           localStorage.setItem('token', token);
+          localStorage.setItem('role', userRole);
           console.log('Token guardado: ', token);
-          this.email.set(''); 
+
+          this.email.set('');
           this.password.set('');
-          console.log(UserData.data.user.role)
-          this.router.navigate(['']);
+
+          console.log(UserData.data.user.role);
+          // El window location lo que hace es que cuando inicies sesion recargue la pagina y la envie a la ruta que le damos, porque si no iciera esa recarga, al entrar con el token false y al loguearte siendo admin, te saltaria un error porque no daria tiempo a cargar
+          window.location.href = '/';
         }
       })
       .catch((error) => {
