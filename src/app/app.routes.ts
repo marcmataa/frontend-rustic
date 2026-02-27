@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { EditCartaComponent } from './components/edit-carta/edit-carta.component';
 import { adminGuard } from './guards/admin-guard';
 import { CartaComponent } from './components/carta/carta.component';
+import {LogoutComponent} from './components/logout/logout.component'
 
 export const routes: Routes = [
     {
@@ -16,7 +17,13 @@ export const routes: Routes = [
             {
                 path: 'register',
                 component: RegisterComponent
-            }, {
+            },
+            {
+                path: 'logout',
+                component: LogoutComponent
+            },
+            
+            {
 
                 path: 'edit-carta',
                 component: EditCartaComponent,

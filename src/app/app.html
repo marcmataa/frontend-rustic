@@ -1,12 +1,18 @@
-<div>
-  <a routerLink="/login">Login</a>
-</div>
-<div>
-  <a routerLink="/register">Register</a>
-</div>
-<div>
+<nav>
+  <a routerLink="/">Inicio</a>
+
+  @if (authService.isLogged()) {
+    <span>Bienvenido!</span>
+    <a routerLink="/logout">Cerrar Sesión</a>
+  } @else {
+    <div>
+      <a routerLink="/login">Login</a>
+    </div>
+    <a routerLink="/register">Registro</a>
+  }
+</nav>
   <a routerLink="/carta">Carta</a>
-</div>
+
 @if (isAdminIn()){
 
   <div>
