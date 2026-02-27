@@ -1,0 +1,7 @@
+nav {
+  display: flex;        /* Pone todo en una línea horizontal */
+  gap: 20px;            /* Crea espacio entre los elementos automáticamente */
+  align-items: center;  /* Centra los elementos verticalmente */
+  padding: 10px;        /* Un poco de aire alrededor */
+  background-color: #f8f9fa; /* (Opcional) Un color suave de fondo */
+}

@@ -5,18 +5,17 @@
     <span>Bienvenido!</span>
     <a routerLink="/logout">Cerrar Sesión</a>
   } @else {
-    <div>
-      <a routerLink="/login">Login</a>
-    </div>
+    <a routerLink="/login">Iniciar Sesión</a>
     <a routerLink="/register">Registro</a>
   }
-</nav>
+  
   <a routerLink="/carta">Carta</a>
 
-@if (isAdminIn()){
+  @if (authService.isAdmin()) {
+    <div>
+      <a routerLink="/edit-carta">Editar Carta</a>
+    </div>
+  }
+</nav>
 
-  <div>
-    <a routerLink="/edit-carta">Editar Carta</a>
-  </div>
-}
 <router-outlet></router-outlet>
