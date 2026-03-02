@@ -1,0 +1,66 @@
+<div class="container">
+  <h2>Nueva Reserva</h2>
+
+  <form (ngSubmit)="onReserva()">
+    <div class="field">
+      <label>Nombre</label>
+      <input type="text" [ngModel]="name()" (ngModelChange)="name.set($event)" (focus)="isTimePickerVisible.set(false)" name="name" required />
+    </div>
+
+    <div class="field">
+      <label>Apellidos</label>
+      <input type="text" [ngModel]="surname()" (ngModelChange)="surname.set($event)" (focus)="isTimePickerVisible.set(false)" name="surname" required />
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input type="email" [ngModel]="email()" (ngModelChange)="email.set($event)" (focus)="isTimePickerVisible.set(false)" name="email" required />
+    </div>
+
+    <div class="field">
+      <label>Teléfono</label>
+      <input type="tel" [ngModel]="phone()" (ngModelChange)="phone.set($event)" (focus)="isTimePickerVisible.set(false)" name="phone" required />
+    </div>
+
+    <div class="field">
+      <label>Número de personas</label>
+      <input type="number" [ngModel]="guests()" (ngModelChange)="guests.set($event)" (focus)="isTimePickerVisible.set(false)" name="guests" min="1" />
+    </div>
+
+    <div class="field">
+      <label>Fecha</label>
+      <input type="date" [ngModel]="date()" (ngModelChange)="date.set($event)" (focus)="isTimePickerVisible.set(false)" name="date" required />
+    </div>
+
+    <div class="field time-selector-container">
+      <label>Hora de reserva</label>
+      <button type="button" class="time-trigger" (click)="toggleTimePicker()">
+        {{ startTime() || 'Seleccionar hora 🕒' }}
+      </button>
+
+      @if (isTimePickerVisible()) {
+        <div class="time-picker-popover">
+          <div class="slots-grid">
+            @for (slot of lunchSlots; track slot) {
+              <button type="button" [class.selected]="startTime() === slot" (click)="selectTime(slot)">
+                {{ slot }}
+              </button>
+            }
+          </div>
+
+          <hr class="separator">
+
+          <div class="slots-grid">
+            @for (slot of dinnerSlots; track slot) {
+              <button type="button" [class.selected]="startTime() === slot" (click)="selectTime(slot)">
+                {{ slot }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <button type="submit">Confirmar Reserva</button>
+  </form>
+</div>

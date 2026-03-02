@@ -1,5 +1,10 @@
 <div>
     <h2>Login</h2>
+    @if (sessionExpired()) {
+    <div class="alert-error">
+      Tu sesión ha caducado. Por favor, inicia sesión de nuevo para continuar.
+    </div>
+  }
      <div class="form-group">
     <label>Correo Electrónico:</label>
     <input

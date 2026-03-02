@@ -1,8 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import api from '../../interceptors/axios';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -12,13 +12,24 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
  
 private authService = inject(AuthService);
   private router = inject(Router);
- 
+ private route = inject(ActivatedRoute);
+
   email = signal('');
   password = signal('');
+
+  sessionExpired = signal(false);
+  ngOnInit() {
+    // 6. Escuchamos los parámetros de la URL cuando el componente carga
+    this.route.queryParams.subscribe(params => {
+      if (params['expired'] === 'true') {
+        this.sessionExpired.set(true);
+      }
+    });
+  }
   // El onSubmit sirve para cuando se le da la accion de entrar con el boton
   onLogin() {
     let data = JSON.stringify({

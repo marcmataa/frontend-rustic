@@ -1,0 +1,30 @@
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 botones por fila */
+  gap: 10px;
+  margin: 10px 0 20px 0;
+}
+
+.slots-grid button {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.slots-grid button:hover {
+  background: #e0e0e0;
+}
+
+.slots-grid button.selected {
+  background-color: #007bff; /* Color azul al seleccionar */
+  color: white;
+  border-color: #0056b3;
+}
+.separator {
+  border: 0;
+  border-top: 1px solid #ddd; /* Color gris suave */
+  margin: 20px 0;             /* Espacio arriba y abajo para que respire */
+}

@@ -5,6 +5,7 @@ import { EditCartaComponent } from './components/edit-carta/edit-carta.component
 import { adminGuard } from './guards/admin-guard';
 import { CartaComponent } from './components/carta/carta.component';
 import {LogoutComponent} from './components/logout/logout.component'
+import { ReservaComponent } from './components/reserva/reserva.component';
 
 export const routes: Routes = [
     {
@@ -32,6 +33,10 @@ export const routes: Routes = [
             {
                 path: 'carta',
                 component: CartaComponent
+            },
+            {
+                path: 'reserva',
+                component: ReservaComponent
             }
         ]
     }
