@@ -1,0 +1,189 @@
+/* 2. Estructura Global */
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif; /* Fuente moderna y legible */
+  background-color: var(--bg-cream);
+  color: var(--text-main);
+}
+
+.reservations-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.reservations-container h1 {
+  text-align: center;
+  color: var(--rustic-brown);
+  margin-bottom: 2rem;
+}
+
+/* 3. Lista Vertical Estable (No más saltos) */
+/* 1. Aseguramos que el contenedor padre tenga 'gap' */
+.reservations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Esto crea un espacio uniforme de 32px entre elementos */
+  min-height: 650px; 
+}
+
+/* 2. Añadimos un margen inferior a la tarjeta por seguridad */
+.reservation-card {
+  background: white;
+  border: 1px solid #d7ccc8; /* Borde suave */
+  border-left: 6px solid var(--rustic-green);
+  border-radius: 12px;
+  padding: 1.5rem;
+  
+  /* AQUÍ ESTÁ EL CAMBIO: añadimos margen inferior */
+  margin-bottom: 0.5rem; 
+  
+  box-shadow: 0 4px 6px -2px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+  position: relative;
+}
+/* Un pequeño efecto "Pro" al pasar el ratón */
+.reservation-card:hover {
+  border-color: var(--rustic-brown); /* El borde se vuelve marrón al pasar el ratón */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* 5. Botones de acción (Estilo sólido) */
+.btn-delete {
+  background-color: #6d463a;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #6d463a; /* Un tono más oscuro fijo */
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 6. Paginación Pro (Color constante) */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.pagination button {
+  /* Fondo verde aplicado siempre */
+  background-color: var(--rustic-green) !important;
+  color: white !important;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  opacity: 1 !important;
+}
+
+/* Hover suave */
+.pagination button:hover:not(:disabled) {
+  filter: brightness(0.9);
+}
+
+/* Desactivado legible */
+.pagination button:disabled {
+  background-color: #d1d1d1 !important;
+  color: #555 !important;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-weight: bold;
+  color: var(--rustic-brown);
+}
+
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  margin: 2rem auto;
+  border: 2px dashed #d1c9c4; /* Un gris-marrón muy suave */
+  border-radius: 12px;
+  background-color: #fdfaf6; /* Un color crema muy suave, igual que el fondo */
+  max-width: 500px;
+}
+
+.empty-state h3 {
+  color: var(--rustic-brown);
+  margin-top: 1rem;
+}
+
+.icon-rustic {
+  font-size: 3rem; /* Un emoji grande como icono es súper limpio */
+}
+
+.btn-primary {
+  margin-top: 1.5rem;
+  background-color: var(--rustic-green);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.9);
+}
+
+.card-info {
+  flex: 1; /* Esto hace que la info ocupe todo el espacio sobrante */
+}
+
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;   /* todo pegado a la derecha */
+  margin-top: 2.2rem;      /* 🔥 mueve el bloque a la altura de "Hora" */
+  min-width: 260px;
+}
+
+
+.cancellation-policy {
+  position: absolute;
+  right: 1.5rem;        /* mismo padding que la card */
+  bottom: 10%;          /* 🔥 punto medio visual */
+  transform: translateY(50%);
+  font-size: 0.75rem;
+  color: #666;
+  font-style: italic;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.info-row {
+  display: flex;          /* Activa el superpoder de alineación */
+  align-items: center;    /* Centra el icono y el texto verticalmente */
+  gap: 10px;              /* Espacio suave entre icono y texto */
+  margin-bottom: 0.8rem;  /* Separación entre filas */
+}
+
+.icon-rustic {
+  width: 18px;            /* Tamaño fijo para que todos sean iguales */
+  height: 18px;
+  stroke: var(--rustic-brown); 
+  flex-shrink: 0;         /* Evita que el icono se aplaste si el texto es largo */
+}
+
+/* Limpieza adicional: quitamos márgenes de los párrafos para que no se desalineen */
+.info-row p {
+  margin: 0;
+}
+
+

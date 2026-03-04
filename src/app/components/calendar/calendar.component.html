@@ -1,0 +1,21 @@
+<div class="calendar-container">
+  <div class="header">
+    <button (click)="changeMonth(-1)">«</button>
+    <h3>{{ meses[currentDate().getMonth()] }} {{ currentDate().getFullYear() }}</h3>
+    <button (click)="changeMonth(1)">»</button>
+  </div>
+  
+  <div class="grid">
+    <div class="day-label" *ngFor="let d of diasSemana">{{d}}</div>
+    
+    <div class="day-empty" *ngFor="let empty of firstDayOffset"></div>
+    <button 
+      class="day-btn" 
+      *ngFor="let day of daysInMonth" 
+      (click)="selectDate(day)"
+      [class.past-day]="isPast(day)"
+      [class.selected-day]="isSelected(day)">
+      {{ day }}
+    </button>
+  </div>
+</div>

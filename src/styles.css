@@ -1,1 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --rustic-green: #4a6741;
+  --rustic-brown: #5d4037;
+  --bg-cream: #fdfaf6;
+}

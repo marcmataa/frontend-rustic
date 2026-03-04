@@ -1,0 +1,92 @@
+<div class="reservations-container">
+  <h1>Mis Reservas - Can Rústic</h1>
+
+  <div class="reservations-grid">
+    @for (reserva of paginatedReservations(); track reserva._id) {
+      <div class="reservation-card">
+        <div class="card-info">
+          <div class="info-row">
+            <svg
+              class="icon-rustic"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+              <line x1="16" x2="16" y1="2" y2="6" />
+              <line x1="8" x2="8" y1="2" y2="6" />
+              <line x1="3" x2="21" y1="10" y2="10" />
+            </svg>
+            <p><strong>Fecha:</strong> {{ reserva.date | date: 'dd/MM/yyyy' }}</p>
+          </div>
+
+          <div class="info-row">
+            <svg
+              class="icon-rustic"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <p>
+              <strong>Hora:</strong> {{ reserva.startTime | date: 'HH:mm' }} -
+              {{ reserva.endTime | date: 'HH:mm' }}
+            </p>
+          </div>
+
+          <div class="info-row">
+            <svg
+              class="icon-rustic"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            <p><strong>Comensales: </strong>{{ reserva.guests }}</p>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-delete" (click)="deleteReservation(reserva)">Cancelar Reserva</button>
+          <p class="cancellation-policy">
+            * Las reservas deben cancelarse con al menos 1 hora de antelación.
+          </p>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <div class="icon-rustic">🍽️</div>
+        <h3>¡Aún no tienes reservas!</h3>
+        <p>Parece que tu mesa espera. ¿Por qué no te animas a probar nuestra cocina?</p>
+        <button class="btn-primary" (click)="goToReservation()">Reservar Mesa</button>
+      </div>
+    }
+  </div>
+
+  @if (totalPages() > 1) {
+    <div class="pagination">
+      <button [disabled]="currentPage() === 1" (click)="changePage(currentPage() - 1)">
+        Anterior
+      </button>
+      <span>Página {{ currentPage() }} de {{ totalPages() }}</span>
+      <button [disabled]="currentPage() === totalPages()" (click)="changePage(currentPage() + 1)">
+        Siguiente
+      </button>
+    </div>
+  }
+</div>

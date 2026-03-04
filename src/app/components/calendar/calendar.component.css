@@ -1,0 +1,93 @@
+/* Contenedor principal estilo tarjeta */
+.calendar-container {
+  width: 320px;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+}
+
+/* Cabecera con botones y mes */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: sans-serif;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.header button {
+  background: #f0f0f0;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.header button:hover {
+  background: #e0e0e0;
+}
+
+/* El grid de días */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+/* Estilo para cada botón de día */
+.day-btn {
+  padding: 10px 0;
+  border: 1px solid #f0f0f0;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.day-btn:hover {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.day-label {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: #aaa;
+  padding-bottom: 5px;
+}
+
+/* --- AQUÍ ESTÁ LA CORRECCIÓN --- */
+
+/* 1. Días pasados: selector simple */
+.day-btn.past-day {
+  opacity: 0.5;
+  background-color: #f8f8f8 !important;
+  color: #aaa !important;
+  cursor: not-allowed;
+}
+
+/* 2. Día seleccionado: selector compuesto (es más fuerte que el de arriba) */
+/* Al poner .day-btn.selected-day, le damos más importancia al navegador */
+.day-btn.selected-day {
+  background-color: #007bff !important; /* Azul profesional */
+  color: white !important;
+  font-weight: bold;
+  opacity: 1 !important; /* Forzamos opacidad total, eliminando el gris del pasado */
+  transform: scale(1.1); 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  border: 2px solid #0056b3;
+}

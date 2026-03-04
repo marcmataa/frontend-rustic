@@ -1,0 +1,269 @@
+/* --- ESTRUCTURA PRINCIPAL --- */
+.dashboard-container {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  margin-top: 20px;
+  min-height: auto;
+  align-items: flex-start;
+  background-color: #fbf8f5;
+  border-radius: 12px;
+}
+
+.left-pane {
+  flex: 0 0 350px;
+}
+.right-pane {
+  flex: 1;
+}
+
+.calendar-card,
+.reservations-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e8e0d5;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.card-title {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #4a3728;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #d4a373;
+}
+
+/* --- TABLA RÚSTICA --- */
+.rustic-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.rustic-table th {
+  color: #8d6e63;
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  border-bottom: 2px solid #f0ece2;
+  text-align: center;
+}
+.rustic-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f8f6f2;
+  color: #5d4037;
+  text-align: center;
+}
+
+/* --- FORMULARIO CREACIÓN --- */
+.create-form-wrapper {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #d4a373;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  margin-bottom: 25px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  align-items: end;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.input-field label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #8d6e63;
+  text-transform: uppercase;
+}
+
+/* Inputs más pequeños y compactos */
+.input-field input {
+  padding: 6px 8px; /* Reducido para que sea más fino */
+  border: 1px solid #d1c7bc;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #5d4037;
+  background: #fdfaf6;
+}
+
+/* --- ESTILOS ESPECÍFICOS PARA MODO EDICIÓN EN TABLA --- */
+
+/* Input de números (Comensales) */
+.edit-input {
+  padding: 4px 6px;
+  border: 1px solid #d4a373;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: #5d4037;
+  background: #fdfaf6;
+  width: 50px;
+  text-align: center;
+}
+
+/* Selector de estado */
+.edit-select {
+  padding: 4px 8px;
+  border: 1px solid #d4a373;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: #5d4037;
+  background: #fdfaf6;
+  min-width: 130px;
+  cursor: pointer;
+}
+
+/* Esto elimina el estilo global tosco que podías tener antes */
+.edit-input:focus,
+.edit-select:focus {
+  outline: none;
+  border-color: #8d6e63;
+}
+/* --- BOTONES --- */
+.btn-tab {
+  padding: 5px 8px;
+  border-radius: 4px;
+  border: 1px solid #d4a373;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: white;
+  margin: 0 2px;
+}
+
+.btn-tab-edit {
+  color: #8d6e63;
+  border-color: #d4a373;
+}
+.btn-tab-edit:hover {
+  background: #fdfaf6;
+}
+
+.btn-tab-save {
+  background: #8d6e63;
+  color: white;
+  border-color: #8d6e63;
+}
+.btn-tab-save:hover {
+  background: #5d4037;
+}
+
+.btn-tab-cancel {
+  color: #666;
+  border-color: #ccc;
+}
+.btn-tab-cancel:hover {
+  background: #f0f0f0;
+}
+
+.btn-toggle-ghost {
+  background: #d4a373;
+  color: white;
+  border: 1px solid #d4a373;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.25s;
+  margin-bottom: 20px;
+}
+.btn-toggle-ghost:hover {
+  background: #8d6e63;
+}
+
+.btn-save-compact {
+  background: #8d6e63;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  height: 35px; /* Altura más ajustada */
+}
+.btn-save-compact:hover {
+  background: #5d4037;
+}
+.btn-save-centered {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 200px;
+}
+
+/* --- OTROS --- */
+.status-badge {
+  background: #d4a373;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  display: inline-block;
+}
+.status-select {
+  min-width: 120px;
+  padding: 4px 8px;
+  border: 1px solid #d4a373;
+  border-radius: 4px;
+}
+.table-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Base común del badge (mantén tu estilo actual, solo le quitamos el color fijo) */
+
+.status-badge {
+  display: inline-block;
+  min-width: 120px; /* Ancho fijo para que todos midan lo mismo */
+  text-align: center; /* Centramos el texto */
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+/* Y ahora, tus clases específicas de color (asegúrate de que estas estén DEBAJO de .status-badge) */
+.status-confirmada {
+  background-color: #cce5ff;
+  color: #004085;
+  border-color: #b8daff;
+}
+.status-en_sala {
+  background-color: #f4e1c1;
+  color: #5d4037;
+  border-color: #d4a373;
+}
+.status-completada {
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+.status-cancelada {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+.btn-wrapper-center {
+  text-align: center;
+}

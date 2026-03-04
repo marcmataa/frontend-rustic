@@ -9,14 +9,23 @@
     <a routerLink="/register">Registro</a>
   }
   <a routerLink="/reserva">Reservar Mesa</a>
-  
+
   <a routerLink="/carta">Carta</a>
 
-  @if (authService.isAdmin()) {
+  @if (authService.isLogged()) {
     <div>
-      <a routerLink="/edit-carta">Editar Carta</a>
+      <a routerLink="/my-reservation">Mis reservas</a>
     </div>
   }
+ @if (authService.isAdmin()) {
+  <div class="dropdown">
+    <button class="dropbtn">Gestión ⚙️ ▾</button>
+    <div class="dropdown-content">
+      <a routerLink="/edit-carta">Editar Carta</a>
+      <a routerLink="/all-reservas">Ver Reservas</a>
+    </div>
+  </div>
+}
 </nav>
 
 <router-outlet></router-outlet>

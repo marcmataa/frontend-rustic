@@ -6,6 +6,9 @@ import { adminGuard } from './guards/admin-guard';
 import { CartaComponent } from './components/carta/carta.component';
 import {LogoutComponent} from './components/logout/logout.component'
 import { ReservaComponent } from './components/reserva/reserva.component';
+import { MyReservationComponent } from './components/my-reservation/my-reservation.component';
+import { authGuard } from './guards/auth-guard';
+import { AllReservasComponent } from './components/all-reservas/all-reservas.component';
 
 export const routes: Routes = [
     {
@@ -37,6 +40,16 @@ export const routes: Routes = [
             {
                 path: 'reserva',
                 component: ReservaComponent
+            },
+            {
+                path: 'my-reservation',
+                component: MyReservationComponent,
+                canActivate: [authGuard]
+            },
+            {
+                path: 'all-reservas',
+                component: AllReservasComponent,
+                canActivate: [adminGuard]
             }
         ]
     }
