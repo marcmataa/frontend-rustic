@@ -1,34 +1,138 @@
-
-nav {
-  display: flex;        /* Pone todo en una línea horizontal */
-  gap: 20px;            /* Crea espacio entre los elementos automáticamente */
-  align-items: center;  /* Centra los elementos verticalmente */
-  padding: 10px;        /* Un poco de aire alrededor */
-  background-color: #f8f9fa; /* (Opcional) Un color suave de fondo */
+/* --- Navbar Principal --- */
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 40px;
+  background-color: var(--rustic-green);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 80px;
+  position: relative; /* IMPORTANTE */
 }
-.dropdown {
-  position: relative;
-  display: inline-block;
+
+/* --- Los contenedores de las 3 partes --- */
+.nav-left {
+  justify-self: start;
 }
 
-.dropdown-content {
-  display: none;
+.nav-center {
   position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.nav-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;   /* 🔥 imprescindible */
+  gap: 20px;
+}
+
+/* --- Estilo general de enlaces --- */
+.navbar a {
+  color: var(--bg-cream); /* Asumiendo var(--bg-cream) */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* --- Logo --- */
+.logo img {
+  height: 75px;
+  width: auto;
+  display: block;
+}
+
+/* --- Estilo del botón "Gestión" (Dropdown) --- */
+.dropbtn {
+  background: none;
+  border: none;
+  color: var(--bg-cream);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: inherit; /* 🔥 CLAVE */
+  cursor: pointer;
+}
+
+.dropbtn:hover {
+  text-decoration: underline;
+}
+
+/* --- Dropdown contenido --- */
+.dropdown {
+  position: relative; /* IMPORTANTE */
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
 }
+/* 1. El contenedor del menú (la cajita que se despliega) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;                 
+  transform: translateX(-50%); 
+  background-color: var(--bg-cream);
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 9999;
+  border-radius: 4px;
+  padding: 5px 0;
+}
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
+/* 2. Cuando pasamos el ratón, forzamos que aparezca */
+.dropdown:hover .dropdown-content {
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1;}
+/* 3. Estilo para los enlaces DENTRO del menú */
+.dropdown-content a {
+  color: #333 !important; /* Forzamos color oscuro para leerse bien */
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-weight: normal; /* Que se diferencie del menú principal */
+  margin: 0; /* Quitamos márgenes que vienen del padre */
+}
+
+/* 4. Efecto hover al pasar el ratón por las opciones */
+.dropdown-content a:hover {
+  background-color: #f0f0f0; /* Un gris muy clarito para que se vea el cambio */
+}
+
+/* Boton Registro */
+.nav-button {
+  background-color: var(--bg-cream);
+  color: var(--rustic-brown) !important;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.nav-button:hover {
+  opacity: 0.85;
+  text-decoration: none !important;
+}
+
+/* Cerrar sesion */
+.logout {
+  border: 1px solid var(--bg-cream);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: 0.2s ease;
+}
+
+.logout:hover {
+  background-color: var(--bg-cream);
+  color: var(--rustic-brown) !important;
+}

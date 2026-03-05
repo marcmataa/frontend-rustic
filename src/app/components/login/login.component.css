@@ -1,8 +1,200 @@
-.alert-error {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 15px;
-  border-radius: 5px;
+/* ============================
+   VARIABLES DE MARCA
+   ============================ */
+:host {
+  --rustic-green: #105453;
+  --rustic-green-dark: #0a3635;
+  --rustic-green-light: #e8f0f0;
+  --rustic-brown: #3b2a1a;
+  --rustic-brown-light: #c9a96e;
+  --rustic-cream: #faf8f5;
+  --rustic-cream-dark: #f0e8d8;
+  --rustic-border: #ddd3c4;
+  --rustic-text-muted: #8a7060;
+}
+
+/* ============================
+   WRAPPER
+   ============================ */
+.login-wrapper {
+  min-height: 100vh;
+  background: var(--rustic-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: sans-serif;
+}
+
+/* ============================
+   CARD
+   ============================ */
+.login-card {
+  background: #fff;
+  border: 1px solid var(--rustic-border);
+  border-top: 4px solid var(--rustic-green);
+  border-radius: 16px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 32px rgba(16, 84, 83, 0.1);
+  animation: slideUp 0.3s ease;
+}
+
+/* ============================
+   CABECERA
+   ============================ */
+.login-header {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rustic-cream-dark);
+  text-align: center;
+}
+
+.brand-label {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--rustic-green);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.login-header h2 {
+  font-family: 'Georgia', serif;
+  font-size: 1.9rem;
+  color: var(--rustic-brown);
+  margin: 0 0 8px;
+  font-weight: normal;
+  letter-spacing: -0.02em;
+}
+
+.login-header p {
+  color: var(--rustic-text-muted);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ============================
+   ALERTA SESIÓN EXPIRADA
+   ============================ */
+.alert-expired {
+  background: #fff8e1;
+  border-left: 4px solid #f59e0b;
+  border-radius: 6px;
+  padding: 12px 14px;
   margin-bottom: 20px;
-  border: 1px solid #f5c6cb;
+  font-size: 0.85rem;
+  color: #92400e;
+  font-family: sans-serif;
+}
+
+/* ============================
+   CAMPOS
+   ============================ */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.field label {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rustic-green);
+  font-weight: 700;
+}
+
+.field input {
+  padding: 13px 15px;
+  border: 1.5px solid var(--rustic-border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--rustic-brown);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  font-family: sans-serif;
+}
+
+.field input:focus {
+  border-color: var(--rustic-green);
+  box-shadow: 0 0 0 3px rgba(16, 84, 83, 0.1);
+}
+
+.field input::placeholder {
+  color: #c4b8ac;
+}
+
+/* ============================
+   BOTÓN SUBMIT
+   ============================ */
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px;
+  background: var(--rustic-green);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  margin-top: 6px;
+}
+
+.submit-btn:hover {
+  background: var(--rustic-green-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(16, 84, 83, 0.25);
+}
+
+.submit-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+}
+
+.submit-btn:hover .submit-arrow {
+  transform: translateX(4px);
+}
+
+/* ============================
+   FOOTER
+   ============================ */
+.login-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rustic-cream-dark);
+  font-size: 0.88rem;
+  color: var(--rustic-text-muted);
+}
+
+.login-footer a {
+  color: var(--rustic-green);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ============================
+   ANIMACIÓN
+   ============================ */
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

@@ -1,129 +1,307 @@
-/* 2. Estructura Global */
-body {
-  font-family: 'Segoe UI', system-ui, sans-serif; /* Fuente moderna y legible */
-  background-color: var(--bg-cream);
-  color: var(--text-main);
+/* ============================
+   VARIABLES DE MARCA
+   ============================ */
+:host {
+  --rustic-green: #105453;
+  --rustic-green-dark: #0a3635;
+  --rustic-green-light: #e8f0f0;
+  --rustic-brown: #3b2a1a;
+  --rustic-brown-mid: #7a5c2e;
+  --rustic-brown-light: #c9a96e;
+  --rustic-cream: #faf8f5;
+  --rustic-cream-dark: #f0e8d8;
+  --rustic-border: #ddd3c4;
+  --rustic-text-muted: #8a7060;
 }
 
+/* ============================
+   CONTENEDOR PRINCIPAL
+   ============================ */
 .reservations-container {
-  max-width: 600px;
-  margin: 2rem auto;
+  max-width: 680px;
+  margin: 2.5rem auto;
   padding: 2rem;
+  background: var(--rustic-cream);
+  border: 1px solid var(--rustic-border);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(16, 84, 83, 0.08);
+  font-family: sans-serif;
 }
 
 .reservations-container h1 {
   text-align: center;
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+  font-size: 1.8rem;
   color: var(--rustic-brown);
-  margin-bottom: 2rem;
+  margin-bottom: 0.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--rustic-green);
+  letter-spacing: -0.01em;
 }
 
-/* 3. Lista Vertical Estable (No más saltos) */
-/* 1. Aseguramos que el contenedor padre tenga 'gap' */
-.reservations-list {
+/* ============================
+   TABS
+   ============================ */
+.view-selector {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 1.5rem 0 2rem;
+}
+
+.btn-rustic-tab {
+  padding: 9px 22px;
+  border-radius: 50px;
+  border: 1.5px solid var(--rustic-border);
+  background: #fff;
+  color: var(--rustic-text-muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.88rem;
+  font-family: sans-serif;
+}
+
+.btn-rustic-tab:hover {
+  border-color: var(--rustic-green);
+  color: var(--rustic-green);
+  background: var(--rustic-green-light);
+}
+
+.btn-rustic-tab.active {
+  background: var(--rustic-green);
+  color: #fff;
+  border-color: var(--rustic-green);
+  box-shadow: 0 4px 12px rgba(16, 84, 83, 0.2);
+}
+
+/* ============================
+   GRID DE TARJETAS
+   ============================ */
+.reservations-grid {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Esto crea un espacio uniforme de 32px entre elementos */
-  min-height: 650px; 
+  gap: 1rem;
 }
 
-/* 2. Añadimos un margen inferior a la tarjeta por seguridad */
+/* ============================
+   TARJETA DE RESERVA
+   ============================ */
 .reservation-card {
-  background: white;
-  border: 1px solid #d7ccc8; /* Borde suave */
-  border-left: 6px solid var(--rustic-green);
+  background: #fff;
+  border: 1px solid var(--rustic-border);
+  border-left: 5px solid var(--rustic-green);
   border-radius: 12px;
-  padding: 1.5rem;
-  
-  /* AQUÍ ESTÁ EL CAMBIO: añadimos margen inferior */
-  margin-bottom: 0.5rem; 
-  
-  box-shadow: 0 4px 6px -2px rgba(0,0,0,0.05);
+  padding: 1.4rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   position: relative;
-}
-/* Un pequeño efecto "Pro" al pasar el ratón */
-.reservation-card:hover {
-  border-color: var(--rustic-brown); /* El borde se vuelve marrón al pasar el ratón */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(16, 84, 83, 0.05);
 }
 
-/* 5. Botones de acción (Estilo sólido) */
+.reservation-card:hover {
+  box-shadow: 0 6px 20px rgba(16, 84, 83, 0.1);
+  border-color: var(--rustic-green);
+  transform: translateY(-1px);
+}
+
+/* ============================
+   INFO DE LA TARJETA
+   ============================ */
+.card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.info-name {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rustic-cream-dark);
+}
+
+.info-name p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--rustic-brown);
+  font-family: 'Georgia', serif;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 0;
+}
+
+.info-row p {
+  margin: 0;
+  line-height: 1;
+  font-size: 0.9rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+}
+
+.info-row p strong {
+  color: var(--rustic-green-dark);
+  margin-right: 3px;
+}
+
+.icon-rustic {
+  width: 17px;
+  height: 17px;
+  stroke: var(--rustic-green);
+  flex-shrink: 0;
+}
+
+/* ============================
+   ACCIONES DE LA TARJETA
+   ============================ */
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin-top: 2.8rem;
+  gap: 10px;
+  min-width: 200px;
+}
+
 .btn-delete {
-  background-color: #6d463a;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
+  background-color: #fff;
+  color: #c0392b;
+  border: 1.5px solid #c0392b;
+  padding: 0.55rem 1.1rem;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.85rem;
+  font-family: sans-serif;
   transition: all 0.2s ease;
 }
 
 .btn-delete:hover {
-  background-color: #6d463a; /* Un tono más oscuro fijo */
-  transform: translateY(-2px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  background-color: #c0392b;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(192, 57, 43, 0.2);
 }
 
-/* 6. Paginación Pro (Color constante) */
+.cancellation-policy {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 10%;
+  transform: translateY(50%);
+  font-size: 0.72rem;
+  color: var(--rustic-text-muted);
+  font-style: italic;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* ============================
+   ESTADO DE RESERVA (HISTORIAL)
+   ============================ */
+.rustic-status-box {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid rgba(16, 84, 83, 0.25);
+  background-color: var(--rustic-green-light);
+  color: var(--rustic-green-dark);
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  border-radius: 6px;
+}
+
+.rustic-status-box strong {
+  font-weight: bold;
+  color: var(--rustic-green);
+  margin-right: 5px;
+}
+
+/* ============================
+   PAGINACIÓN
+   ============================ */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
 }
 
 .pagination button {
-  /* Fondo verde aplicado siempre */
-  background-color: var(--rustic-green) !important;
-  color: white !important;
+  background-color: var(--rustic-green);
+  color: white;
   border: none;
-  padding: 0.7rem 1.5rem;
+  padding: 0.65rem 1.4rem;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  opacity: 1 !important;
+  font-family: sans-serif;
+  font-size: 0.88rem;
+  transition: background 0.2s, transform 0.15s;
 }
 
-/* Hover suave */
 .pagination button:hover:not(:disabled) {
-  filter: brightness(0.9);
+  background-color: var(--rustic-green-dark);
+  transform: translateY(-1px);
 }
 
-/* Desactivado legible */
 .pagination button:disabled {
-  background-color: #d1d1d1 !important;
-  color: #555 !important;
+  background-color: #b0c4c4;
+  color: #fff;
   cursor: not-allowed;
+  transform: none;
 }
 
 .pagination span {
-  font-weight: bold;
+  font-weight: 600;
   color: var(--rustic-brown);
+  font-family: sans-serif;
+  font-size: 0.9rem;
 }
 
-
+/* ============================
+   ESTADO VACÍO
+   ============================ */
 .empty-state {
   text-align: center;
   padding: 3rem 2rem;
-  margin: 2rem auto;
-  border: 2px dashed #d1c9c4; /* Un gris-marrón muy suave */
+  margin: 1rem auto;
+  border: 2px dashed rgba(16, 84, 83, 0.2);
   border-radius: 12px;
-  background-color: #fdfaf6; /* Un color crema muy suave, igual que el fondo */
-  max-width: 500px;
+  background-color: var(--rustic-green-light);
+  max-width: 420px;
+}
+
+.empty-state .icon-rustic {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+  width: auto;
+  height: auto;
+  stroke: none;
 }
 
 .empty-state h3 {
-  color: var(--rustic-brown);
-  margin-top: 1rem;
+  color: var(--rustic-green-dark);
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
 }
 
-.icon-rustic {
-  font-size: 3rem; /* Un emoji grande como icono es súper limpio */
+.empty-state p {
+  color: var(--rustic-text-muted);
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 .btn-primary {
@@ -131,59 +309,17 @@ body {
   background-color: var(--rustic-green);
   color: white;
   border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 6px;
+  padding: 0.8rem 1.6rem;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: background 0.3s;
+  font-family: 'Georgia', serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, transform 0.15s;
 }
 
 .btn-primary:hover {
-  filter: brightness(0.9);
+  background-color: var(--rustic-green-dark);
+  transform: translateY(-1px);
 }
-
-.card-info {
-  flex: 1; /* Esto hace que la info ocupe todo el espacio sobrante */
-}
-
-.card-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;   /* todo pegado a la derecha */
-  margin-top: 2.2rem;      /* 🔥 mueve el bloque a la altura de "Hora" */
-  min-width: 260px;
-}
-
-
-.cancellation-policy {
-  position: absolute;
-  right: 1.5rem;        /* mismo padding que la card */
-  bottom: 10%;          /* 🔥 punto medio visual */
-  transform: translateY(50%);
-  font-size: 0.75rem;
-  color: #666;
-  font-style: italic;
-  white-space: nowrap;
-  text-align: right;
-}
-
-.info-row {
-  display: flex;          /* Activa el superpoder de alineación */
-  align-items: center;    /* Centra el icono y el texto verticalmente */
-  gap: 10px;              /* Espacio suave entre icono y texto */
-  margin-bottom: 0.8rem;  /* Separación entre filas */
-}
-
-.icon-rustic {
-  width: 18px;            /* Tamaño fijo para que todos sean iguales */
-  height: 18px;
-  stroke: var(--rustic-brown); 
-  flex-shrink: 0;         /* Evita que el icono se aplaste si el texto es largo */
-}
-
-/* Limpieza adicional: quitamos márgenes de los párrafos para que no se desalineen */
-.info-row p {
-  margin: 0;
-}
-
-

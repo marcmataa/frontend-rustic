@@ -1,93 +1,103 @@
-/* Contenedor principal estilo tarjeta */
+/* ============================
+   CALENDARIO - TEMA EL RUSTIC
+   ============================ */
 .calendar-container {
-  width: 320px;
-  padding: 1.5rem;
-  border: 1px solid #e0e0e0;
+  width: 100%; /* 👈 cambia 320px por 100% */
+  padding: 1.25rem;
+  border: 1px solid #ddd3c4;
   border-radius: 12px;
   background-color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(16, 84, 83, 0.08);
+  font-family: sans-serif;
+  box-sizing: border-box; /* 👈 añade esto también */
 }
 
-/* Cabecera con botones y mes */
+/* Cabecera */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
-  font-family: sans-serif;
 }
 
 .header h3 {
   margin: 0;
-  font-size: 1.1rem;
-  color: #333;
+  font-size: 1rem;
+  color: #3b2a1a;
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+  letter-spacing: 0.03em;
 }
 
 .header button {
-  background: #f0f0f0;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
+  background: #e8f0f0;
+  border: 1px solid rgba(16, 84, 83, 0.2);
+  padding: 5px 11px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  color: #105453;
+  transition: background 0.2s;
+  font-size: 0.85rem;
 }
 
 .header button:hover {
-  background: #e0e0e0;
+  background: #c5dcdb;
 }
 
-/* El grid de días */
+/* Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
+  gap: 5px;
 }
 
-/* Estilo para cada botón de día */
-.day-btn {
-  padding: 10px 0;
-  border: 1px solid #f0f0f0;
-  background: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.day-btn:hover {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
-}
-
+/* Etiquetas día semana */
 .day-label {
   text-align: center;
-  font-weight: bold;
-  font-size: 0.8rem;
-  color: #aaa;
-  padding-bottom: 5px;
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #105453;
+  padding-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-/* --- AQUÍ ESTÁ LA CORRECCIÓN --- */
+/* Botón día */
+.day-btn {
+  padding: 8px 0;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 0.85rem;
+  color: #3b2a1a;
+  text-align: center;
+}
 
-/* 1. Días pasados: selector simple */
+.day-btn:hover:not(.past-day) {
+  background-color: #e8f0f0;
+  border-color: #105453;
+  color: #105453;
+}
+
+/* Días pasados */
 .day-btn.past-day {
-  opacity: 0.5;
-  background-color: #f8f8f8 !important;
+  opacity: 0.3;
+  background-color: transparent !important;
   color: #aaa !important;
   cursor: not-allowed;
+  border-color: transparent !important;
 }
 
-/* 2. Día seleccionado: selector compuesto (es más fuerte que el de arriba) */
-/* Al poner .day-btn.selected-day, le damos más importancia al navegador */
+/* Día seleccionado */
 .day-btn.selected-day {
-  background-color: #007bff !important; /* Azul profesional */
-  color: white !important;
+  background-color: #105453 !important;
+  color: #fff !important;
   font-weight: bold;
-  opacity: 1 !important; /* Forzamos opacidad total, eliminando el gris del pasado */
-  transform: scale(1.1); 
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  border: 2px solid #0056b3;
+  opacity: 1 !important;
+  border-color: #105453 !important;
+  transform: scale(1.08);
+  box-shadow: 0 2px 8px rgba(16, 84, 83, 0.3);
 }

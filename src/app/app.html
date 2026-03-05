@@ -1,31 +1,40 @@
-<nav>
-  <a routerLink="/">Inicio</a>
-
-  @if (authService.isLogged()) {
-    <span>Bienvenido!</span>
-    <a routerLink="/logout">Cerrar Sesión</a>
-  } @else {
-    <a routerLink="/login">Iniciar Sesión</a>
-    <a routerLink="/register">Registro</a>
-  }
-  <a routerLink="/reserva">Reservar Mesa</a>
-
-  <a routerLink="/carta">Carta</a>
-
-  @if (authService.isLogged()) {
-    <div>
-      <a routerLink="/my-reservation">Mis reservas</a>
-    </div>
-  }
- @if (authService.isAdmin()) {
-  <div class="dropdown">
-    <button class="dropbtn">Gestión ⚙️ ▾</button>
-    <div class="dropdown-content">
-      <a routerLink="/edit-carta">Editar Carta</a>
-      <a routerLink="/all-reservas">Ver Reservas</a>
-    </div>
+<nav class="navbar">
+  <div class="nav-left">
+    <a routerLink="/" class="logo">
+      <img src="assets/img-rustic/logo-2.jpg" alt="Can Rústic" />
+    </a>
   </div>
-}
+
+  <div class="nav-center">
+    <a routerLink="/">Inicio</a>
+    <a routerLink="/carta">Carta</a>
+    <a routerLink="/reserva">Reservar Mesa</a>
+  </div>
+
+  <div class="nav-right">
+    @if (authService.isLogged()) {
+      <div>
+        <a routerLink="/my-reservation">Mis reservas</a>
+      </div>
+    }
+    @if (authService.isAdmin()) {
+      <div class="dropdown">
+        <button class="dropbtn" (click)="toggleDropdown()">Gestión ⚙️ ▾</button>
+  
+        <div class="dropdown-content" [class.show]="isOpen">
+          <a routerLink="/edit-carta">Editar Carta</a>
+          <a routerLink="/all-reservas">Ver Reservas</a>
+        </div>
+      </div>
+    }
+    @if (authService.isLogged()) {
+      <a routerLink="/logout" class="nav-link logout"> Cerrar Sesión </a>
+    } @else {
+      <a routerLink="/login">Iniciar Sesión</a>
+      <a routerLink="/register" class="nav-button">Registro</a>
+    }
+
+  </div>
 </nav>
 
 <router-outlet></router-outlet>

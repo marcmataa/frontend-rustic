@@ -1,119 +1,166 @@
-<div class="container">
-  <h2>Nueva Reserva</h2>
+<div class="reserva-wrapper">
 
-  <form (ngSubmit)="onReserva()">
-    <div class="field">
-      <label>Nombre</label>
-      <input
-        type="text"
-        [ngModel]="name()"
-        (ngModelChange)="name.set($event)"
-        (focus)="isTimePickerVisible.set(false)"
-        name="name"
-        required
-      />
+  @if (!authService.isLogged()) {
+    <div class="guest-banner">
+      <span class="banner-icon">👤</span>
+      <span>Estás entrando como invitado.</span>
+      <a routerLink="/login" [queryParams]="{ returnUrl: '/reserva' }">
+        Inicia sesión para autocompletar tus datos →
+      </a>
     </div>
+  }
 
-    <div class="field">
-      <label>Apellidos</label>
-      <input
-        type="text"
-        [ngModel]="surname()"
-        (ngModelChange)="surname.set($event)"
-        (focus)="isTimePickerVisible.set(false)"
-        name="surname"
-        required
-      />
-    </div>
+  <div class="reserva-layout">
 
-    <div class="field">
-      <label>Email</label>
-      <input
-        type="email"
-        [ngModel]="email()"
-        (ngModelChange)="email.set($event)"
-        (focus)="isTimePickerVisible.set(false)"
-        name="email"
-        required
-      />
-    </div>
+    <!-- Columna izquierda: formulario -->
+    <div class="form-column">
+      <div class="form-header">
+        <span class="form-label-top">CAN RÚSTIC - GASTRO BAR</span>
+        <h2>Reservar Mesa</h2>
+        <p>Completa los datos y elige tu momento perfecto.</p>
+      </div>
 
-    <div class="field">
-      <label>Teléfono</label>
-      <input
-        type="tel"
-        [ngModel]="phone()"
-        (ngModelChange)="phone.set($event)"
-        (focus)="isTimePickerVisible.set(false)"
-        name="phone"
-        required
-      />
-    </div>
+      <form (ngSubmit)="onReserva()">
 
-    <div class="field">
-      <label>Número de personas</label>
-      <input
-        type="number"
-        [ngModel]="guests()"
-        (ngModelChange)="guests.set($event)"
-        (focus)="isTimePickerVisible.set(false)"
-        name="guests"
-        min="1"
-      />
-    </div>
-
-    <div class="field">
-      <label>Fecha</label>
-      <input
-        type="date"
-        [ngModel]="date()"
-        (ngModelChange)="date.set($event)"
-        (focus)="isTimePickerVisible.set(false)"
-        name="date"
-        required
-      />
-    </div>
-
-    <div class="field time-selector-container">
-      <label>Hora de reserva</label>
-      <button type="button" class="time-trigger" (click)="toggleTimePicker()">
-        {{ startTime() || 'Seleccionar hora 🕒' }}
-      </button>
-
-      @if (isTimePickerVisible()) {
-        <div class="time-picker-popover">
-          <div class="slots-grid">
-            @for (slot of lunchSlots; track slot) {
-              <button
-                type="button"
-                [class.selected]="startTime() === slot"
-                (click)="selectTime(slot)"
-              >
-                {{ slot }}
-              </button>
-            }
+        <div class="fields-row">
+          <div class="field">
+            <label>Nombre</label>
+            <input
+              type="text"
+              [value]="name()"
+              (input)="name.set($any($event.target).value)"
+              (focus)="isTimePickerVisible.set(false)"
+              name="name"
+              placeholder="Tu nombre"
+            />
           </div>
-
-          <div class="aviso">
-            <p>ℹ️ Nota: Cada reserva tiene una duración fija de 2 horas.</p>
-          </div>
-          
-
-          <div class="slots-grid">
-            @for (slot of dinnerSlots; track slot) {
-              <button
-                type="button"
-                [class.selected]="startTime() === slot"
-                (click)="selectTime(slot)"
-              >
-                {{ slot }}
-              </button>
-            }
+          <div class="field">
+            <label>Apellidos</label>
+            <input
+              type="text"
+              [value]="surname()"
+              (input)="surname.set($any($event.target).value)"
+              (focus)="isTimePickerVisible.set(false)"
+              name="surname"
+              placeholder="Tus apellidos"
+            />
           </div>
         </div>
-      }
+
+        <div class="fields-row">
+          <div class="field">
+            <label>Teléfono</label>
+            <input
+              type="tel"
+              [value]="phone()"
+              (input)="phone.set($any($event.target).value)"
+              (focus)="isTimePickerVisible.set(false)"
+              name="phone"
+              maxlength="9"
+              placeholder="600 123 456"
+            />
+          </div>
+          <div class="field">
+            <label>Número de personas</label>
+            <div class="guests-control">
+              <button type="button" class="guests-btn" (click)="decrementGuests()">−</button>
+              <span class="guests-value">{{ guests() }}</span>
+              <button type="button" class="guests-btn" (click)="incrementGuests()">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selector de hora -->
+        <div class="field time-selector-container">
+          <label>Hora de reserva</label>
+          <button type="button" class="time-trigger" (click)="toggleTimePicker()">
+            <span class="time-icon">🕐</span>
+            {{ startTime() || 'Seleccionar hora' }}
+            <span class="time-arrow">{{ isTimePickerVisible() ? '▲' : '▼' }}</span>
+          </button>
+
+          @if (isTimePickerVisible()) {
+            <div class="time-picker-popover">
+              <div class="time-section-label">Comida</div>
+              <div class="slots-grid">
+                @for (slot of lunchSlots; track slot) {
+                  <button
+                    type="button"
+                    [class.selected]="startTime() === slot"
+                    (click)="selectTime(slot)"
+                  >{{ slot }}</button>
+                }
+              </div>
+              <div class="time-section-label">Cena</div>
+              <div class="slots-grid">
+                @for (slot of dinnerSlots; track slot) {
+                  <button
+                    type="button"
+                    [class.selected]="startTime() === slot"
+                    (click)="selectTime(slot)"
+                  >{{ slot }}</button>
+                }
+              </div>
+              <div class="aviso">
+                <p>ℹ️ Cada reserva tiene una duración de 2 horas.</p>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Resumen de selección -->
+        @if (date() || startTime()) {
+          <div class="selection-summary">
+            @if (date()) {
+              <span class="summary-chip">📅 {{ formatDateDisplay(date()) }}</span>
+            }
+            @if (startTime()) {
+              <span class="summary-chip">🕐 {{ startTime() }}h</span>
+            }
+            @if (guests()) {
+              <span class="summary-chip">👥 {{ guests() }} persona{{ Number(guests()) !== 1 ? 's' : '' }}</span>
+            }
+          </div>
+        }
+
+        <button type="submit" class="submit-btn" [disabled]="!isFormValid()">
+          <span>Confirmar Reserva</span>
+          <span class="submit-arrow">→</span>
+        </button>
+
+      </form>
     </div>
 
-    <button type="submit">Confirmar Reserva</button>
-  </form>
+    <!-- Columna derecha: calendario -->
+    <div class="calendar-column">
+      <app-calendar
+        [selectedDate]="selectedDateObj"
+        (dateSelected)="onDateSelected($event)"
+      ></app-calendar>
+
+      <div class="calendar-note">
+        <span>📍</span>
+        <span>Av. Hospital, 6, 08470 Sant Celoni, Barcelona</span>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<!-- Modal de login -->
+@if (showLoginPrompt()) {
+  <div class="modal-overlay" (click)="closeLoginPrompt()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-icon">🔐</div>
+      <h3>Inicia sesión para continuar</h3>
+      <p>
+        Necesitas una cuenta para completar tu reserva.<br>
+        <strong>¡No perderás los datos que has introducido!</strong>
+      </p>
+      <div class="modal-actions">
+        <button class="btn-primary" (click)="goToLogin()">Iniciar sesión</button>
+        <button class="btn-secondary" (click)="closeLoginPrompt()">Seguir como invitado</button>
+      </div>
+    </div>
+  </div>
+}

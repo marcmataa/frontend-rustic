@@ -7,10 +7,10 @@ import api from '../interceptors/axios';
 export class MyReservationService {
   seeReservationSignal = signal<any[]>([]);
 
-  async getReservation() {
+  async getReservation(filter: 'upcoming' | 'past' = 'upcoming') {
     const config = {
       method: 'get',
-      url: 'reserva/',
+      url: `reserva/?filter=${filter}`, //Con esto pediremos dos rutas diferentes dependiendo de si es upcoming o past
       data: '',
     };
     try {
@@ -25,7 +25,7 @@ export class MyReservationService {
 
   async deleteReservation(id: string){
     const config = {
-      method: 'delete',
+      method: 'put',
       url: `reserva/delete/${id}`,
       data:  ''
     };

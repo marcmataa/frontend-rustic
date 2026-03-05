@@ -2,13 +2,14 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import api from '../../interceptors/axios';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule], //FormsModule se necesita para poder usar el ngModel en el HTML y asi poder leer lo que escribes
+  imports: [FormsModule, CommonModule, RouterLink], //FormsModule se necesita para poder usar el ngModel en el HTML y asi poder leer lo que escribes
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -20,8 +21,8 @@ private authService = inject(AuthService);
 
   email = signal('');
   password = signal('');
-
   sessionExpired = signal(false);
+
   ngOnInit() {
     // 6. Escuchamos los parámetros de la URL cuando el componente carga
     this.route.queryParams.subscribe(params => {
@@ -36,7 +37,7 @@ private authService = inject(AuthService);
       email: this.email(),
       password: this.password(),
     });
-    console.log(data);
+    
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
@@ -46,26 +47,22 @@ private authService = inject(AuthService);
       },
       data: data,
     };
+
     //Se crea la conexion con el back, llevando la config que le hemos dado arriba
     api
       .request(config)
-      .then((response) => {
-        console.log('Usuario logueado con exito');
-      
-
-        console.log('Datos recibidos del Back:', response.data);
-
+       .then((response) => {
         const token = response.data.data.token;
         const role = response.data.data.user.role;
-        // Si el usuario tiene token decimos que isAdmin es true y almacenamos el token en el localStorage
-        if (token) {
-     this.authService.loginSuccess(token, role);
-          console.log('Token guardado: ', token);
-          console.log('Rol: ', role)
 
+        if (token) {
+          this.authService.loginSuccess(token, role);
           this.email.set('');
-          this.password.set('')
-          this.router.navigate(['/']);
+          this.password.set('');
+
+          // Redirige al returnUrl si existe, si no a la home
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          this.router.navigate([returnUrl]);
         }
       })
       .catch((error) => {

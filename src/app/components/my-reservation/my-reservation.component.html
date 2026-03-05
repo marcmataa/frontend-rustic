@@ -1,10 +1,31 @@
 <div class="reservations-container">
   <h1>Mis Reservas - Can Rústic</h1>
 
+  <div class="view-selector">
+    <button
+      class="btn-rustic-tab"
+      [class.active]="currentView() === 'upcoming'"
+      (click)="loadData('upcoming')"
+    >
+      📅 Próximas Reservas
+    </button>
+
+    <button
+      class="btn-rustic-tab"
+      [class.active]="currentView() === 'past'"
+      (click)="loadData('past')"
+    >
+      📜 Historial
+    </button>
+  </div>
+
   <div class="reservations-grid">
     @for (reserva of paginatedReservations(); track reserva._id) {
       <div class="reservation-card">
         <div class="card-info">
+          <div class="info-name">
+            <p><strong>Reserva a nombre de:</strong>&nbsp;{{ reserva.name | titlecase }} {{ reserva.surname | titlecase}}</p>
+          </div>
           <div class="info-row">
             <svg
               class="icon-rustic"
@@ -20,7 +41,7 @@
               <line x1="8" x2="8" y1="2" y2="6" />
               <line x1="3" x2="21" y1="10" y2="10" />
             </svg>
-            <p><strong>Fecha:</strong> {{ reserva.date | date: 'dd/MM/yyyy' }}</p>
+            <p><strong>Fecha:</strong>&nbsp;{{ reserva.date | date: 'dd/MM/yyyy' }}</p>
           </div>
 
           <div class="info-row">
@@ -37,7 +58,7 @@
               <polyline points="12 6 12 12 16 14" />
             </svg>
             <p>
-              <strong>Hora:</strong> {{ reserva.startTime | date: 'HH:mm' }} -
+              <strong>Hora:</strong>&nbsp; {{ reserva.startTime | date: ' HH:mm' }} -
               {{ reserva.endTime | date: 'HH:mm' }}
             </p>
           </div>
@@ -57,15 +78,25 @@
               <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
               <path d="M16 3.13a4 4 0 0 1 0 7.75" />
             </svg>
-            <p><strong>Comensales: </strong>{{ reserva.guests }}</p>
+           <p><strong>Comensales:</strong>&nbsp;{{ reserva.guests }}</p>
           </div>
         </div>
 
         <div class="card-actions">
-          <button class="btn-delete" (click)="deleteReservation(reserva)">Cancelar Reserva</button>
-          <p class="cancellation-policy">
-            * Las reservas deben cancelarse con al menos 1 hora de antelación.
-          </p>
+          @if (currentView() === 'upcoming') {
+            <button class="btn-delete" (click)="deleteReservation(reserva)">
+              Cancelar Reserva
+            </button>
+            <p class="cancellation-policy">
+              * Las reservas deben cancelarse con al menos 1 hora de antelación.
+            </p>
+          } @else {
+            <div style="margin-top: 10px">
+              <div class="rustic-status-box">
+                <strong>Estado:</strong> {{ reserva.status.replace('_', ' ') | titlecase }}
+              </div>
+            </div>
+          }
         </div>
       </div>
     } @empty {

@@ -16,4 +16,11 @@ export class App {
     return role === 'admin';
   }
   public authService = inject(AuthService);
+
+  // Funcion click para el gestion de admin
+  isOpen = false;
+
+toggleDropdown() {
+  this.isOpen = !this.isOpen;
+}
 }

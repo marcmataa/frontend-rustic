@@ -9,48 +9,46 @@ import { ReservaComponent } from './components/reserva/reserva.component';
 import { MyReservationComponent } from './components/my-reservation/my-reservation.component';
 import { authGuard } from './guards/auth-guard';
 import { AllReservasComponent } from './components/all-reservas/all-reservas.component';
+import { InicioComponent } from './components/inicio/inicio.component';
 
 export const routes: Routes = [
     {
         path: '',
-        children: [
-            {
-                path: 'login',
-                component: LoginComponent
-            },
-            {
-                path: 'register',
-                component: RegisterComponent
-            },
-            {
-                path: 'logout',
-                component: LogoutComponent
-            },
-            
-            {
-
-                path: 'edit-carta',
-                component: EditCartaComponent,
-                canActivate: [adminGuard] // esto lo que hace es que gracias al AdminService, poder hacer que solo tengas acceso si tienes el rol de admin.
-            },
-            {
-                path: 'carta',
-                component: CartaComponent
-            },
-            {
-                path: 'reserva',
-                component: ReservaComponent
-            },
-            {
-                path: 'my-reservation',
-                component: MyReservationComponent,
-                canActivate: [authGuard]
-            },
-            {
-                path: 'all-reservas',
-                component: AllReservasComponent,
-                canActivate: [adminGuard]
-            }
-        ]
-    }
+        component: InicioComponent  // 👈 la home en la raíz
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
+    },
+    {
+        path: 'logout',
+        component: LogoutComponent
+    },
+    {
+        path: 'edit-carta',
+        component: EditCartaComponent,
+        canActivate: [adminGuard]
+    },
+    {
+        path: 'carta',
+        component: CartaComponent
+    },
+    {
+        path: 'reserva',
+        component: ReservaComponent
+    },
+    {
+        path: 'my-reservation',
+        component: MyReservationComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'all-reservas',
+        component: AllReservasComponent,
+        canActivate: [adminGuard]
+    },
 ];

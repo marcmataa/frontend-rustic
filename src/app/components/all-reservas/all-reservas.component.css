@@ -1,227 +1,263 @@
-/* --- ESTRUCTURA PRINCIPAL --- */
+/* ============================
+   VARIABLES DE MARCA
+   ============================ */
+:host {
+  --rustic-green: #105453;
+  --rustic-green-dark: #0a3635;
+  --rustic-green-light: #e8f0f0;
+  --rustic-brown: #3b2a1a;
+  --rustic-brown-mid: #7a5c2e;
+  --rustic-brown-light: #c9a96e;
+  --rustic-cream: #faf8f5;
+  --rustic-cream-dark: #f0e8d8;
+  --rustic-border: #ddd3c4;
+  --rustic-text-muted: #8a7060;
+}
+
+/* ============================
+   ESTRUCTURA PRINCIPAL
+   ============================ */
 .dashboard-container {
   display: flex;
   gap: 2rem;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  margin-top: 20px;
-  min-height: auto;
+  margin: 2rem auto;
+  padding: 2rem 1.5rem;
   align-items: flex-start;
-  background-color: #fbf8f5;
-  border-radius: 12px;
+  background-color: var(--rustic-cream);
+  border-radius: 16px;
+  font-family: sans-serif;
 }
 
 .left-pane {
-  flex: 0 0 350px;
-}
-.right-pane {
-  flex: 1;
+  flex: 0 0 340px;
 }
 
+.right-pane {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ============================
+   TARJETAS
+   ============================ */
 .calendar-card,
 .reservations-card {
-  background: white;
-  padding: 2rem;
+  background: #fff;
+  padding: 1.8rem;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e8e0d5;
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  box-shadow: 0 4px 16px rgba(16, 84, 83, 0.08);
+  border: 1px solid var(--rustic-border);
 }
 
 .card-title {
-  font-family: 'Segoe UI', system-ui, sans-serif;
-  color: #4a3728;
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+  font-size: 1.3rem;
+  color: var(--rustic-brown);
   text-align: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #d4a373;
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--rustic-green);
+  letter-spacing: -0.01em;
 }
 
-/* --- TABLA RÚSTICA --- */
-.rustic-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-.rustic-table th {
-  color: #8d6e63;
-  padding: 12px;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  border-bottom: 2px solid #f0ece2;
-  text-align: center;
-}
-.rustic-table td {
-  padding: 12px;
-  border-bottom: 1px solid #f8f6f2;
-  color: #5d4037;
+/* ============================
+   BOTÓN TOGGLE FORMULARIO
+   ============================ */
+.btn-wrapper-center {
   text-align: center;
 }
 
-/* --- FORMULARIO CREACIÓN --- */
+.btn-toggle-ghost {
+  background: var(--rustic-green);
+  color: #fff;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: sans-serif;
+  transition: background 0.2s, transform 0.15s;
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
+}
+
+.btn-toggle-ghost:hover {
+  background: var(--rustic-green-dark);
+  transform: translateY(-1px);
+}
+
+/* ============================
+   FORMULARIO DE CREACIÓN
+   ============================ */
 .create-form-wrapper {
-  background: #ffffff;
+  background: var(--rustic-cream);
   padding: 20px;
   border-radius: 10px;
-  border: 1px solid #d4a373;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  margin-bottom: 25px;
+  border: 1px solid rgba(16, 84, 83, 0.2);
+  border-left: 4px solid var(--rustic-green);
+  box-shadow: 0 2px 8px rgba(16, 84, 83, 0.06);
+  margin-bottom: 24px;
+}
+
+.create-form-wrapper h3 {
+  margin: 0 0 16px;
+  color: var(--rustic-brown);
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+  font-size: 1.1rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rustic-cream-dark);
 }
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 14px;
   align-items: end;
 }
 
 .input-field {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
+
 .input-field label {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  color: #8d6e63;
+  color: var(--rustic-green);
   text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
-/* Inputs más pequeños y compactos */
 .input-field input {
-  padding: 6px 8px; /* Reducido para que sea más fino */
-  border: 1px solid #d1c7bc;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  color: #5d4037;
-  background: #fdfaf6;
-}
-
-/* --- ESTILOS ESPECÍFICOS PARA MODO EDICIÓN EN TABLA --- */
-
-/* Input de números (Comensales) */
-.edit-input {
-  padding: 4px 6px;
-  border: 1px solid #d4a373;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  color: #5d4037;
-  background: #fdfaf6;
-  width: 50px;
-  text-align: center;
-}
-
-/* Selector de estado */
-.edit-select {
-  padding: 4px 8px;
-  border: 1px solid #d4a373;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  color: #5d4037;
-  background: #fdfaf6;
-  min-width: 130px;
-  cursor: pointer;
-}
-
-/* Esto elimina el estilo global tosco que podías tener antes */
-.edit-input:focus,
-.edit-select:focus {
+  padding: 9px 11px;
+  border: 1.5px solid var(--rustic-border);
+  border-radius: 7px;
+  font-size: 0.88rem;
+  color: var(--rustic-brown);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
-  border-color: #8d6e63;
-}
-/* --- BOTONES --- */
-.btn-tab {
-  padding: 5px 8px;
-  border-radius: 4px;
-  border: 1px solid #d4a373;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: white;
-  margin: 0 2px;
+  font-family: sans-serif;
 }
 
-.btn-tab-edit {
-  color: #8d6e63;
-  border-color: #d4a373;
-}
-.btn-tab-edit:hover {
-  background: #fdfaf6;
+.input-field input:focus {
+  border-color: var(--rustic-green);
+  box-shadow: 0 0 0 3px rgba(16, 84, 83, 0.1);
 }
 
-.btn-tab-save {
-  background: #8d6e63;
-  color: white;
-  border-color: #8d6e63;
-}
-.btn-tab-save:hover {
-  background: #5d4037;
+.input-field input[readonly] {
+  background: var(--rustic-green-light);
+  color: var(--rustic-green-dark);
+  cursor: default;
 }
 
-.btn-tab-cancel {
-  color: #666;
-  border-color: #ccc;
-}
-.btn-tab-cancel:hover {
-  background: #f0f0f0;
-}
-
-.btn-toggle-ghost {
-  background: #d4a373;
-  color: white;
-  border: 1px solid #d4a373;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: all 0.25s;
-  margin-bottom: 20px;
-}
-.btn-toggle-ghost:hover {
-  background: #8d6e63;
-}
-
+/* ============================
+   BOTÓN GUARDAR RESERVA
+   ============================ */
 .btn-save-compact {
-  background: #8d6e63;
-  color: white;
+  background: var(--rustic-green);
+  color: #fff;
   border: none;
-  padding: 6px 16px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 7px;
   font-weight: 600;
+  font-family: sans-serif;
   cursor: pointer;
-  height: 35px; /* Altura más ajustada */
+  font-size: 0.88rem;
+  transition: background 0.2s, transform 0.15s;
+  height: 38px;
 }
+
 .btn-save-compact:hover {
-  background: #5d4037;
+  background: var(--rustic-green-dark);
+  transform: translateY(-1px);
 }
+
 .btn-save-centered {
   grid-column: 1 / -1;
   justify-self: center;
   width: 200px;
 }
 
-/* --- OTROS --- */
-.status-badge {
-  background: #d4a373;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  white-space: nowrap;
-  display: inline-block;
+/* ============================
+   TABLA
+   ============================ */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--rustic-border);
 }
-.status-select {
-  min-width: 120px;
-  padding: 4px 8px;
-  border: 1px solid #d4a373;
-  border-radius: 4px;
+
+.rustic-table {
+  width: 100%;
+  border-collapse: collapse;
 }
+
+.rustic-table th {
+  background: var(--rustic-green-light);
+  color: var(--rustic-green);
+  padding: 12px 14px;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 2px solid rgba(16, 84, 83, 0.15);
+}
+
+.rustic-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rustic-cream-dark);
+  color: var(--rustic-brown);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.rustic-table tbody tr:hover {
+  background: var(--rustic-cream);
+}
+
+.rustic-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ============================
+   EDICIÓN EN TABLA
+   ============================ */
+.edit-input {
+  padding: 5px 7px;
+  border: 1.5px solid var(--rustic-green);
+  border-radius: 5px;
+  font-size: 0.82rem;
+  color: var(--rustic-brown);
+  background: #fff;
+  width: 55px;
+  text-align: center;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 84, 83, 0.1);
+}
+
+.edit-select {
+  padding: 5px 9px;
+  border: 1.5px solid var(--rustic-green);
+  border-radius: 5px;
+  font-size: 0.82rem;
+  color: var(--rustic-brown);
+  background: #fff;
+  min-width: 130px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 84, 83, 0.1);
+}
+
+/* ============================
+   BOTONES DE ACCIONES EN TABLA
+   ============================ */
 .table-actions {
   display: flex;
   gap: 6px;
@@ -229,41 +265,124 @@
   align-items: center;
 }
 
-/* Base común del badge (mantén tu estilo actual, solo le quitamos el color fijo) */
-
-.status-badge {
-  display: inline-block;
-  min-width: 120px; /* Ancho fijo para que todos midan lo mismo */
-  text-align: center; /* Centramos el texto */
+.btn-tab {
   padding: 5px 10px;
-  border-radius: 20px;
+  border-radius: 5px;
   font-size: 0.75rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: sans-serif;
+  border: 1.5px solid transparent;
+}
+
+.btn-tab-edit {
+  background: var(--rustic-green-light);
+  color: var(--rustic-green);
+  border-color: rgba(16, 84, 83, 0.25);
+}
+
+.btn-tab-edit:hover {
+  background: var(--rustic-green);
+  color: #fff;
+  border-color: var(--rustic-green);
+}
+
+.btn-tab-save {
+  background: var(--rustic-green);
+  color: #fff;
+  border-color: var(--rustic-green);
+}
+
+.btn-tab-save:hover {
+  background: var(--rustic-green-dark);
+}
+
+.btn-tab-cancel {
+  background: #fff;
+  color: var(--rustic-text-muted);
+  border-color: var(--rustic-border);
+}
+
+.btn-tab-cancel:hover {
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+/* ============================
+   BADGES DE ESTADO
+   ============================ */
+.status-badge {
+  display: inline-block;
+  min-width: 110px;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   border: 1px solid transparent;
 }
 
-/* Y ahora, tus clases específicas de color (asegúrate de que estas estén DEBAJO de .status-badge) */
 .status-confirmada {
-  background-color: #cce5ff;
-  color: #004085;
-  border-color: #b8daff;
+  background-color: var(--rustic-green-light);
+  color: var(--rustic-green-dark);
+  border-color: rgba(16, 84, 83, 0.2);
 }
+
 .status-en_sala {
-  background-color: #f4e1c1;
-  color: #5d4037;
-  border-color: #d4a373;
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
 }
+
 .status-completada {
   background-color: #d4edda;
   color: #155724;
   border-color: #c3e6cb;
 }
+
 .status-cancelada {
   background-color: #f8d7da;
   color: #721c24;
   border-color: #f5c6cb;
 }
 
-.btn-wrapper-center {
+/* ============================
+   ESTADO VACÍO
+   ============================ */
+.empty-state {
   text-align: center;
+  padding: 3rem 1rem;
+  color: var(--rustic-text-muted);
+  font-size: 0.95rem;
+  border: 2px dashed rgba(16, 84, 83, 0.2);
+  border-radius: 10px;
+  background: var(--rustic-green-light);
+  margin-top: 1rem;
+}
+
+/* Quitar flechas para subir/bajar personas */
+.edit-input::-webkit-outer-spin-button,
+.edit-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.edit-input {
+  -moz-appearance: textfield;
+}
+
+.input-field input[type="number"]::-webkit-outer-spin-button,
+.input-field input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-field input[type="number"] {
+  -moz-appearance: textfield;
 }

@@ -1,5 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import api from '../interceptors/axios';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +23,10 @@ export class AuthService {
   // Al ser publico se puede leer el valor desde cualquier sitio, y con el asReadonly, lo que se hace es que se pueda ver, pero no modificar el valor.
   public isLogged = this.isLoggedSignal.asReadonly();
   public isAdmin = this.isAdminSignal.asReadonly();
+  // Creas el getuserprofile que pueda ser visto para todo el mundo, con la informacion que hay en la api de user/profile
+  public getUserProfile(): Observable<any> {
+    return from(api.get('user/profile')); 
+  }
 
   loginSuccess(token: string, role: string) {
     localStorage.setItem('token', token);
