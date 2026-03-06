@@ -1,0 +1,231 @@
+/* ============================
+   FOOTER
+   ============================ */
+:host {
+  --rustic-green: #105453;
+  --rustic-green-dark: #0a3635;
+  --rustic-brown: #3b2a1a;
+}
+
+.footer {
+  background: var(--rustic-green);
+  font-family: sans-serif;
+  padding: 64px 20px 0;
+}
+
+/* ============================
+   GRID
+   ============================ */
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 32px;
+  }
+}
+
+@media (max-width: 500px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-title {
+    font-size: 1.6rem;
+  }
+
+  .footer-hours-row {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .footer-hours-row .closed {
+    margin-top: 0;
+  }
+}
+
+/* ============================
+   MARCA
+   ============================ */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #c9a96e;
+}
+
+.footer-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.footer-tagline {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.7;
+  
+}
+
+.footer-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #c9a96e;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-top: 4px;
+  transition: color 0.2s;
+}
+
+.footer-instagram:hover {
+  color: #fff;
+}
+
+.footer-instagram svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+/* ============================
+   COLUMNAS
+   ============================ */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-col-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c9a96e;
+  margin: 0 0 16px;
+}
+
+/* ============================
+   NAVEGACIÓN
+   ============================ */
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-nav a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+  color: #fff;
+}
+
+/* ============================
+   CONTACTO
+   ============================ */
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.footer-info-row svg {
+  width: 15px;
+  height: 15px;
+  stroke: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.footer-maps-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  transition: color 0.2s;
+}
+
+.footer-maps-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-info a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  line-height: 1.7;
+}
+
+.footer-info a:hover {
+  color: #fff;
+}
+
+/* ============================
+   HORARIO
+   ============================ */
+.footer-hours {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-hours-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  gap: 12px;
+}
+
+.footer-hours-row .closed {
+  color: #e07070;
+  font-weight: 600;
+}
+
+/* ============================
+   COPYRIGHT
+   ============================ */
+.footer-bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
+}

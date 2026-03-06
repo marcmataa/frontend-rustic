@@ -12,12 +12,12 @@ import { CalendarComponent } from '../calendar/calendar.component';
   templateUrl: './reserva.component.html',
   styleUrl: './reserva.component.css',
 })
-export class ReservaComponent implements OnInit{
+export class ReservaComponent implements OnInit {
   private router = inject(Router);
-public authService = inject(AuthService);
+  public authService = inject(AuthService);
 
-// Sireve para poder usarlo en el template
-Number = Number;
+  // Sireve para poder usarlo en el template
+  Number = Number;
 
   name = signal('');
   surname = signal('');
@@ -30,33 +30,32 @@ Number = Number;
   // Objeto Date para pasarle al calendario como @Input
   selectedDateObj: Date | null = null;
 
- 
   ngOnInit() {
-  // Recuperamos el borrador si venimos del login
-  const draft = sessionStorage.getItem('reserva_draft');
-  if (draft) {
-    const data = JSON.parse(draft);
-    this.name.set(data.name || '');
-    this.surname.set(data.surname || '');
-    this.phone.set(data.phone || '');
-    this.guests.set(data.guests || '1');
-    this.date.set(data.date || '');
-    this.startTime.set(data.startTime || '');
+    // Recuperamos el borrador si venimos del login
+    const draft = sessionStorage.getItem('reserva_draft');
+    if (draft) {
+      const data = JSON.parse(draft);
+      this.name.set(data.name || '');
+      this.surname.set(data.surname || '');
+      this.phone.set(data.phone || '');
+      this.guests.set(data.guests || '1');
+      this.date.set(data.date || '');
+      this.startTime.set(data.startTime || '');
 
-    // Si había fecha, reconstruimos el objeto Date para el calendario
-    if (data.date) {
-      const [yyyy, mm, dd] = data.date.split('-').map(Number);
-      this.selectedDateObj = new Date(yyyy, mm - 1, dd);
+      // Si había fecha, reconstruimos el objeto Date para el calendario
+      if (data.date) {
+        const [yyyy, mm, dd] = data.date.split('-').map(Number);
+        this.selectedDateObj = new Date(yyyy, mm - 1, dd);
+      }
+
+      // Limpiamos el borrador para que no reaparezca en visitas futuras
+      sessionStorage.removeItem('reserva_draft');
     }
 
-    // Limpiamos el borrador para que no reaparezca en visitas futuras
-    sessionStorage.removeItem('reserva_draft');
+    if (localStorage.getItem('token')) {
+      this.userInfo();
+    }
   }
-
-  if (localStorage.getItem('token')) {
-    this.userInfo();
-  }
-}
   userInfo() {
     // Llamamos al servicio de getUserProfile del authservice para recojer los datos del usuario
     this.authService.getUserProfile().subscribe({
@@ -66,25 +65,49 @@ Number = Number;
         this.name.set(user.data.data.name);
         this.surname.set(user.data.data.surname);
       },
-      error: (e) => console.log('No se pudo cargar el perfil', e)
+      error: (e) => console.log('No se pudo cargar el perfil', e),
     });
   }
 
+  isSunday = signal(false);
+  isMonday = signal(false);
   // Cuando el calendario emite una fecha
   onDateSelected(date: Date) {
-    this.selectedDateObj = date;
-    // Convertimos a string YYYY-MM-DD para el signal
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    this.date.set(`${yyyy}-${mm}-${dd}`);
+  const day = date.getDay();
+  const sunday = day === 0;
+
+  this.isSunday.set(sunday);
+
+  // Si cambia a domingo y tenía una hora de cena seleccionada, la limpiamos
+  if (sunday && this.startTime().startsWith('20')) {
+    this.startTime.set('');
   }
 
-   // Formatea la fecha para mostrarla bonita en los chips
+  this.selectedDateObj = date;
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  this.date.set(`${yyyy}-${mm}-${dd}`);
+}
+
+  // Formatea la fecha para mostrarla bonita en los chips
   formatDateDisplay(dateStr: string): string {
     if (!dateStr) return '';
     const [yyyy, mm, dd] = dateStr.split('-');
-    const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+    const meses = [
+      'ene',
+      'feb',
+      'mar',
+      'abr',
+      'may',
+      'jun',
+      'jul',
+      'ago',
+      'sep',
+      'oct',
+      'nov',
+      'dic',
+    ];
     return `${parseInt(dd)} ${meses[parseInt(mm) - 1]} ${yyyy}`;
   }
 
@@ -97,7 +120,6 @@ Number = Number;
     const current = Number(this.guests());
     if (current > 1) this.guests.set(String(current - 1));
   }
-  
 
   isFormValid(): boolean {
     const phoneRegex = /^[0-9]{9}$/;
@@ -112,9 +134,10 @@ Number = Number;
   }
 
   onReserva() {
-// Si no estas logueado mostrar el modal en vez de enviar
-     if (!this.authService.isLogged()) {
+    // Si no estas logueado mostrar el modal en vez de enviar
+    if (!this.authService.isLogged()) {
       this.showLoginPrompt.set(true);
+      document.body.style.overflow = 'hidden';
       return;
     }
 
@@ -144,7 +167,6 @@ Number = Number;
       })
       .catch((e) => {
         if (e.response && e.response.status === 409) {
-          
           const mensajeDeError = e.response.data.message;
 
           // Mostramos el error de cuando esta todo lleno
@@ -156,24 +178,29 @@ Number = Number;
         console.log('Error en la reserva: ', e);
       });
   }
-// Ir al login conservando la url de retorno
-   goToLogin() {
-  // Guardamos los datos del formulario antes de ir al login
-  sessionStorage.setItem('reserva_draft', JSON.stringify({
-    name: this.name(),
-    surname: this.surname(),
-    phone: this.phone(),
-    guests: this.guests(),
-    date: this.date(),
-    startTime: this.startTime(),
-  }));
+  // Ir al login conservando la url de retorno
+  goToLogin() {
+    document.body.style.overflow = '';
+    // Guardamos los datos del formulario antes de ir al login
+    sessionStorage.setItem(
+      'reserva_draft',
+      JSON.stringify({
+        name: this.name(),
+        surname: this.surname(),
+        phone: this.phone(),
+        guests: this.guests(),
+        date: this.date(),
+        startTime: this.startTime(),
+      }),
+    );
 
-  this.router.navigate(['/login'], { queryParams: { returnUrl: '/reserva' } });
-}
+    this.router.navigate(['/login'], { queryParams: { returnUrl: '/reserva' } });
+  }
 
   //Cerrar el modal
   closeLoginPrompt() {
     this.showLoginPrompt.set(false);
+    document.body.style.overflow = '';
   }
 
   private resetForm() {
@@ -191,15 +218,16 @@ Number = Number;
 
   isTimePickerVisible = signal(false);
 
-  // Sirve para poder
   toggleTimePicker() {
     this.isTimePickerVisible.update((visible) => !visible);
   }
 
-  // Modifica ligeramente tu selectTime para que se cierre al elegir
   selectTime(time: string) {
     this.startTime.set(time);
+    this.isTimePickerVisible.set(false);
+
   }
+  // Select time para que se cierre al elegir
   closeTimePicker() {
     this.isTimePickerVisible.set(false);
   }
@@ -208,10 +236,12 @@ Number = Number;
     const slots = [];
     let [hour, minute] = start.split(':').map(Number);
     const [endHour, endMinute] = end.split(':').map(Number);
-
+    // Bucle para pasarlo mientras las horas y minutos sean menores al end
     while (hour < endHour || (hour === endHour && minute <= endMinute)) {
+      // Se combierte cada hora en una cadena de strings con hora: minutos
       slots.push(`${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`);
       minute += 15;
+      // Si los minutos llegan a 60, lo combierte en hora y cambia los minutos
       if (minute >= 60) {
         hour += 1;
         minute -= 60;

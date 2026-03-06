@@ -20,7 +20,6 @@
     @if (authService.isAdmin()) {
       <div class="dropdown">
         <button class="dropbtn" (click)="toggleDropdown()">Gestión ⚙️ ▾</button>
-  
         <div class="dropdown-content" [class.show]="isOpen">
           <a routerLink="/edit-carta">Editar Carta</a>
           <a routerLink="/all-reservas">Ver Reservas</a>
@@ -33,8 +32,40 @@
       <a routerLink="/login">Iniciar Sesión</a>
       <a routerLink="/register" class="nav-button">Registro</a>
     }
-
   </div>
+
+  <!-- 👇 Solo esto es nuevo -->
+  <button class="hamburger" (click)="toggleMenu()" [class.active]="menuOpen">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
+<!-- Menu hamburguesa movil -->
+<div class="mobile-menu" [class.open]="menuOpen">
+  <div class="mobile-overlay" (click)="toggleMenu()"></div>
+  <nav class="mobile-nav">
+    <a routerLink="/" (click)="toggleMenu()">Inicio</a>
+    <a routerLink="/carta" (click)="toggleMenu()">Carta</a>
+    <a routerLink="/reserva" (click)="toggleMenu()">Reservar Mesa</a>
+    @if (authService.isLogged()) {
+      <a routerLink="/my-reservation" (click)="toggleMenu()">Mis reservas</a>
+    }
+    @if (authService.isAdmin()) {
+      <a routerLink="/edit-carta" (click)="toggleMenu()">Editar Carta</a>
+      <a routerLink="/all-reservas" (click)="toggleMenu()">Ver Reservas</a>
+    }
+    @if (authService.isLogged()) {
+      <a routerLink="/logout" (click)="toggleMenu()">Cerrar Sesión</a>
+    } @else {
+      <a routerLink="/login" (click)="toggleMenu()">Iniciar Sesión</a>
+      <a routerLink="/register" class="mobile-nav-btn" (click)="toggleMenu()">Registro</a>
+    }
+  </nav>
+</div>
+
 <router-outlet></router-outlet>
+@if (!isAdminRoute()) {
+  <app-footer />
+}

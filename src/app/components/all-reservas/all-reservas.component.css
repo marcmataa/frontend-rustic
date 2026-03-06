@@ -1,17 +1,49 @@
 /* ============================
-   VARIABLES DE MARCA
+   VARIABLES
    ============================ */
 :host {
   --rustic-green: #105453;
   --rustic-green-dark: #0a3635;
   --rustic-green-light: #e8f0f0;
   --rustic-brown: #3b2a1a;
-  --rustic-brown-mid: #7a5c2e;
-  --rustic-brown-light: #c9a96e;
-  --rustic-cream: #faf8f5;
-  --rustic-cream-dark: #f0e8d8;
-  --rustic-border: #ddd3c4;
+  --rustic-cream: #f5ede0;
+  --rustic-cream-dark: #e0cdb8;
+  --rustic-border: #e0cdb8;
   --rustic-text-muted: #8a7060;
+  --danger: #c0392b;
+}
+
+/* ============================
+   CABECERA PÁGINA
+   ============================ */
+.reservas-header {
+  text-align: center;
+  padding: 48px 20px 0;
+  background: var(--rustic-cream);
+}
+.reservas-header-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: var(--rustic-brown);
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+.reservas-header-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--rustic-green);
+  border-radius: 2px;
+  margin: 14px auto 0;
+}
+.reservas-header-sub {
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--rustic-text-muted);
+  margin: 0 0 10px;
 }
 
 /* ============================
@@ -24,107 +56,88 @@
   margin: 2rem auto;
   padding: 2rem 1.5rem;
   align-items: flex-start;
-  background-color: var(--rustic-cream);
+  background: var(--rustic-cream);
   border-radius: 16px;
   font-family: sans-serif;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
-
-.left-pane {
-  flex: 0 0 340px;
-}
-
-.right-pane {
-  flex: 1;
-  min-width: 0;
-}
+.left-pane  { flex: 0 0 340px; }
+.right-pane { flex: 1; min-width: 0; overflow: hidden; }
 
 /* ============================
    TARJETAS
    ============================ */
 .calendar-card,
 .reservations-card {
-  background: #fff;
+  background: rgba(255,255,255,0.55);
   padding: 1.8rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(16, 84, 83, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(59,42,26,0.08);
   border: 1px solid var(--rustic-border);
 }
-
 .card-title {
-  font-family: 'Georgia', serif;
-  font-weight: normal;
-  font-size: 1.3rem;
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
   color: var(--rustic-brown);
   text-align: center;
   margin: 0 0 1.5rem;
   padding-bottom: 0.8rem;
   border-bottom: 2px solid var(--rustic-green);
-  letter-spacing: -0.01em;
 }
 
 /* ============================
-   BOTÓN TOGGLE FORMULARIO
+   BOTÓN TOGGLE
    ============================ */
-.btn-wrapper-center {
-  text-align: center;
-}
-
+.btn-wrapper-center { text-align: center; }
 .btn-toggle-ghost {
   background: var(--rustic-green);
   color: #fff;
-  border: none;
-  padding: 9px 20px;
-  border-radius: 8px;
+  border: 1.5px solid var(--rustic-green);
+  padding: 9px 24px;
+  border-radius: 24px;
   cursor: pointer;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 600;
   font-family: sans-serif;
-  transition: background 0.2s, transform 0.15s;
+  transition: all 0.2s;
   margin-bottom: 20px;
-  letter-spacing: 0.02em;
 }
-
 .btn-toggle-ghost:hover {
   background: var(--rustic-green-dark);
+  border-color: var(--rustic-green-dark);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16,84,83,0.25);
 }
 
 /* ============================
-   FORMULARIO DE CREACIÓN
+   FORMULARIO CREACIÓN
    ============================ */
 .create-form-wrapper {
-  background: var(--rustic-cream);
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid rgba(16, 84, 83, 0.2);
+  background: rgba(255,255,255,0.7);
+  padding: 20px 24px;
+  border-radius: 12px;
+  border: 1px solid var(--rustic-border);
   border-left: 4px solid var(--rustic-green);
-  box-shadow: 0 2px 8px rgba(16, 84, 83, 0.06);
   margin-bottom: 24px;
 }
-
 .create-form-wrapper h3 {
   margin: 0 0 16px;
   color: var(--rustic-brown);
   font-family: 'Georgia', serif;
-  font-weight: normal;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 700;
   padding-bottom: 10px;
-  border-bottom: 1px solid var(--rustic-cream-dark);
+  border-bottom: 1px solid var(--rustic-border);
 }
-
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 14px;
   align-items: end;
 }
-
-.input-field {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
+.input-field { display: flex; flex-direction: column; gap: 5px; }
 .input-field label {
   font-size: 0.68rem;
   font-weight: 700;
@@ -132,225 +145,215 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
-
 .input-field input {
-  padding: 9px 11px;
+  padding: 9px 12px;
   border: 1.5px solid var(--rustic-border);
-  border-radius: 7px;
+  border-radius: 8px;
   font-size: 0.88rem;
   color: var(--rustic-brown);
-  background: #fff;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  background: rgba(255,255,255,0.8);
   outline: none;
   font-family: sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
-
 .input-field input:focus {
   border-color: var(--rustic-green);
-  box-shadow: 0 0 0 3px rgba(16, 84, 83, 0.1);
+  box-shadow: 0 0 0 3px rgba(16,84,83,0.1);
+  background: #fff;
 }
-
 .input-field input[readonly] {
   background: var(--rustic-green-light);
   color: var(--rustic-green-dark);
   cursor: default;
 }
+.input-field input[type="number"]::-webkit-outer-spin-button,
+.input-field input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.input-field input[type="number"] { -moz-appearance: textfield; }
 
-/* ============================
-   BOTÓN GUARDAR RESERVA
-   ============================ */
+/* Time picker */
+.input-field > div[style*="position: absolute"] {
+  border-radius: 12px !important;
+  border: 1px solid var(--rustic-border) !important;
+  box-shadow: 0 8px 24px rgba(59,42,26,0.12) !important;
+  background: #fff !important;
+}
+.input-field > div h4 {
+  font-family: 'Georgia', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--rustic-green);
+}
+.input-field > div button {
+  padding: 6px 10px;
+  border: 1.5px solid var(--rustic-border);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.8);
+  color: var(--rustic-brown);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: sans-serif;
+}
+.input-field > div button:hover {
+  background: var(--rustic-green);
+  color: #fff;
+  border-color: var(--rustic-green);
+}
+
 .btn-save-compact {
   background: var(--rustic-green);
   color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 7px;
+  border: 1.5px solid var(--rustic-green);
+  padding: 10px 24px;
+  border-radius: 24px;
   font-weight: 600;
   font-family: sans-serif;
   cursor: pointer;
-  font-size: 0.88rem;
-  transition: background 0.2s, transform 0.15s;
-  height: 38px;
+  font-size: 0.85rem;
+  transition: all 0.2s;
 }
-
 .btn-save-compact:hover {
   background: var(--rustic-green-dark);
   transform: translateY(-1px);
 }
-
-.btn-save-centered {
-  grid-column: 1 / -1;
-  justify-self: center;
-  width: 200px;
-}
+.btn-save-centered { grid-column: 1 / -1; justify-self: center; width: 200px; }
 
 /* ============================
-   TABLA
+   TABLA (escritorio)
    ============================ */
 .table-wrapper {
-  overflow-x: auto;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid var(--rustic-border);
+  background: rgba(255,255,255,0.4);
+  width: 100%;
+  overflow: hidden;
 }
-
 .rustic-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
+.rustic-table th:nth-child(1) { width: 17%; }
+.rustic-table th:nth-child(2) { width: 13%; }
+.rustic-table th:nth-child(3) { width: 10%; }
+.rustic-table th:nth-child(4) { width: 14%; }
+.rustic-table th:nth-child(5) { width: 18%; }
+.rustic-table th:nth-child(6) { width: 28%; }
 
+.rustic-table thead tr { background: var(--rustic-green); }
 .rustic-table th {
-  background: var(--rustic-green-light);
-  color: var(--rustic-green);
-  padding: 12px 14px;
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  padding: 12px 6px;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
   font-weight: 700;
+  color: rgba(255,255,255,0.9);
   text-align: center;
-  border-bottom: 2px solid rgba(16, 84, 83, 0.15);
+  white-space: nowrap;
+  overflow: hidden;
 }
-
 .rustic-table td {
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--rustic-cream-dark);
+  padding: 11px 6px;
+  border-bottom: 1px solid var(--rustic-border);
   color: var(--rustic-brown);
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.84rem;
+  white-space: nowrap;
+  overflow: hidden;
 }
-
-.rustic-table tbody tr:hover {
-  background: var(--rustic-cream);
-}
-
-.rustic-table tbody tr:last-child td {
-  border-bottom: none;
-}
+.rustic-table tbody tr:hover { background: rgba(201,169,110,0.06); }
+.rustic-table tbody tr:last-child td { border-bottom: none; }
 
 /* ============================
    EDICIÓN EN TABLA
    ============================ */
 .edit-input {
-  padding: 5px 7px;
+  padding: 5px 6px;
   border: 1.5px solid var(--rustic-green);
-  border-radius: 5px;
+  border-radius: 7px;
   font-size: 0.82rem;
   color: var(--rustic-brown);
   background: #fff;
-  width: 55px;
+  width: 50px;
   text-align: center;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(16, 84, 83, 0.1);
+  -moz-appearance: textfield;
 }
+.edit-input::-webkit-outer-spin-button,
+.edit-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
 .edit-select {
-  padding: 5px 9px;
+  padding: 5px 20px 5px 7px;
   border: 1.5px solid var(--rustic-green);
-  border-radius: 5px;
-  font-size: 0.82rem;
+  border-radius: 7px;
+  font-size: 0.75rem;
   color: var(--rustic-brown);
-  background: #fff;
-  min-width: 130px;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23105453' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 5px center;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
   cursor: pointer;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(16, 84, 83, 0.1);
+  box-sizing: border-box;
 }
 
 /* ============================
-   BOTONES DE ACCIONES EN TABLA
+   BOTONES TABLA
    ============================ */
 .table-actions {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   justify-content: center;
   align-items: center;
 }
-
 .btn-tab {
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.75rem;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 0.72rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.18s;
+  transition: all 0.2s;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   font-family: sans-serif;
   border: 1.5px solid transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
-
-.btn-tab-edit {
-  background: var(--rustic-green-light);
-  color: var(--rustic-green);
-  border-color: rgba(16, 84, 83, 0.25);
-}
-
-.btn-tab-edit:hover {
-  background: var(--rustic-green);
-  color: #fff;
-  border-color: var(--rustic-green);
-}
-
-.btn-tab-save {
-  background: var(--rustic-green);
-  color: #fff;
-  border-color: var(--rustic-green);
-}
-
-.btn-tab-save:hover {
-  background: var(--rustic-green-dark);
-}
-
-.btn-tab-cancel {
-  background: #fff;
-  color: var(--rustic-text-muted);
-  border-color: var(--rustic-border);
-}
-
-.btn-tab-cancel:hover {
-  background: #f8d7da;
-  color: #721c24;
-  border-color: #f5c6cb;
-}
+.btn-tab-edit  { background: transparent; color: var(--rustic-text-muted); border-color: var(--rustic-border); }
+.btn-tab-edit:hover { background: var(--rustic-green-light); color: var(--rustic-green); border-color: var(--rustic-green); }
+.btn-tab-save  { background: var(--rustic-green); color: #fff; border-color: var(--rustic-green); }
+.btn-tab-save:hover { background: var(--rustic-green-dark); transform: translateY(-1px); }
+.btn-tab-cancel { background: transparent; color: var(--rustic-text-muted); border-color: var(--rustic-border); }
+.btn-tab-cancel:hover { background: var(--danger); color: #fff; border-color: var(--danger); }
 
 /* ============================
-   BADGES DE ESTADO
+   BADGES ESTADO
    ============================ */
 .status-badge {
   display: inline-block;
-  min-width: 110px;
+  width: 100%;
+  box-sizing: border-box;
   text-align: center;
-  padding: 5px 10px;
+  padding: 4px 6px;
   border-radius: 20px;
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   border: 1px solid transparent;
 }
-
-.status-confirmada {
-  background-color: var(--rustic-green-light);
-  color: var(--rustic-green-dark);
-  border-color: rgba(16, 84, 83, 0.2);
-}
-
-.status-en_sala {
-  background-color: #fef3c7;
-  color: #92400e;
-  border-color: #fcd34d;
-}
-
-.status-completada {
-  background-color: #d4edda;
-  color: #155724;
-  border-color: #c3e6cb;
-}
-
-.status-cancelada {
-  background-color: #f8d7da;
-  color: #721c24;
-  border-color: #f5c6cb;
-}
+.status-confirmada { background: var(--rustic-green-light); color: var(--rustic-green-dark); border-color: rgba(16,84,83,0.2); }
+.status-en_sala    { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+.status-completada { background: #d4edda; color: #155724; border-color: #c3e6cb; }
+.status-cancelada  { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
 
 /* ============================
    ESTADO VACÍO
@@ -360,29 +363,89 @@
   padding: 3rem 1rem;
   color: var(--rustic-text-muted);
   font-size: 0.95rem;
-  border: 2px dashed rgba(16, 84, 83, 0.2);
-  border-radius: 10px;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  border: 2px dashed rgba(16,84,83,0.2);
+  border-radius: 12px;
   background: var(--rustic-green-light);
   margin-top: 1rem;
 }
 
-/* Quitar flechas para subir/bajar personas */
-.edit-input::-webkit-outer-spin-button,
-.edit-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/* ============================
+   MÓVIL — tarjetas por reserva
+   ============================ */
+@media (max-width: 960px) {
+  .dashboard-container { flex-direction: column; padding: 1rem; gap: 1rem; }
+  .left-pane  { flex: none; width: 100%; }
+  .right-pane { width: 100%; overflow: visible; }
+  .calendar-card, .reservations-card { padding: 1.2rem; }
+
+  /* Formulario en 2 cols */
+  .form-grid { grid-template-columns: 1fr 1fr; }
+  .btn-save-centered { grid-column: 1 / -1; width: 100%; }
+
+  /* Tabla → tarjetas */
+  .table-wrapper { border: none; background: transparent; border-radius: 0; overflow: visible; }
+  .rustic-table  { table-layout: auto; display: block; }
+  .rustic-table thead { display: none; }
+  .rustic-table tbody { display: flex; flex-direction: column; gap: 12px; }
+
+  .rustic-table tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--rustic-border);
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(59,42,26,0.06);
+  }
+
+  .rustic-table td {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rustic-border);
+    border-right: 1px solid var(--rustic-border);
+    white-space: normal;
+    overflow: visible;
+    text-align: left;
+    font-size: 0.85rem;
+  }
+
+  /* Etiqueta encima del valor */
+  .rustic-table td::before {
+    content: attr(data-label);
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--rustic-green);
+    margin-bottom: 3px;
+  }
+
+  /* Acciones ocupa toda la fila */
+  .rustic-table td[data-label="Acciones"] {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-right: none;
+    border-bottom: none;
+    padding: 12px;
+  }
+  .rustic-table td[data-label="Acciones"]::before { display: none; }
+
+  .btn-tab { padding: 7px 16px; font-size: 0.8rem; }
+  .edit-input { width: 100%; box-sizing: border-box; }
+  .edit-select { width: 100%; }
+  .status-badge { width: auto; }
 }
 
-.edit-input {
-  -moz-appearance: textfield;
-}
-
-.input-field input[type="number"]::-webkit-outer-spin-button,
-.input-field input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.input-field input[type="number"] {
-  -moz-appearance: textfield;
+@media (max-width: 480px) {
+  .rustic-table tr { grid-template-columns: 1fr; }
+  .rustic-table td { border-right: none; }
+  .form-grid { grid-template-columns: 1fr; }
+  .dashboard-container { padding: 0.75rem; }
 }

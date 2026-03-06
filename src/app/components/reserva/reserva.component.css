@@ -12,6 +12,7 @@
   --rustic-cream-dark: #f0e8d8;
   --rustic-border: #ddd3c4;
   --rustic-text-muted: #8a7060;
+  --bg-cream: #f5ede0;
 }
 
 /* ============================
@@ -19,7 +20,7 @@
    ============================ */
 .reserva-wrapper {
   min-height: 100vh;
-  background: var(--rustic-cream);
+  background: #f5ede0;
   padding: 40px 20px;
   font-family: 'Georgia', serif;
 }
@@ -69,49 +70,49 @@
   align-items: start;
 }
 
-@media (max-width: 750px) {
-  .reserva-layout {
-    grid-template-columns: 1fr;
-  }
-  .calendar-column {
-    order: -1;
-  }
-}
-
 /* ============================
    CABECERA DEL FORMULARIO
    ============================ */
 .form-header {
   margin-bottom: 36px;
-  padding-bottom: 24px;
-  border-bottom: 2px solid var(--rustic-green);
+  padding-bottom: 0;
 }
 
 .form-label-top {
   display: block;
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--rustic-green);
-  margin-bottom: 10px;
+  margin-bottom: 0.6rem;
   font-family: sans-serif;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .form-header h2 {
-  font-size: 2.4rem;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  font-size: 3rem;
   color: var(--rustic-brown);
-  margin: 0 0 8px;
-  font-weight: normal;
+  margin: 0 0 0.7rem;
   letter-spacing: -0.02em;
   line-height: 1.1;
+}
+
+.form-header-divider {
+  width: 52px;
+  height: 3px;
+  background-color: var(--rustic-green);
+  border-radius: 2px;
+  margin-bottom: 0.9rem;
 }
 
 .form-header p {
   color: var(--rustic-text-muted);
   margin: 0;
   font-size: 0.95rem;
-  font-family: sans-serif;
+  font-style: italic;
+  font-family: 'Georgia', serif;
 }
 
 /* ============================
@@ -122,10 +123,6 @@
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-bottom: 4px;
-}
-
-@media (max-width: 500px) {
-  .fields-row { grid-template-columns: 1fr; }
 }
 
 .field {
@@ -317,7 +314,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
 }
 
 .summary-chip {
@@ -337,6 +334,11 @@
 /* ============================
    BOTÓN SUBMIT
    ============================ */
+.submit-wrapper {
+  max-width: 900px;
+  margin: 28px auto 0;
+}
+
 .submit-btn {
   display: flex;
   align-items: center;
@@ -353,7 +355,6 @@
   letter-spacing: 0.06em;
   cursor: pointer;
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-  margin-top: 4px;
 }
 
 .submit-btn:hover:not(:disabled) {
@@ -383,7 +384,7 @@
    ============================ */
 .calendar-column {
   position: sticky;
-  top: 20px;
+  top: auto;
 }
 
 .calendar-note {
@@ -399,8 +400,8 @@
   border: 1px solid rgba(16, 84, 83, 0.2);
   border-radius: 8px;
   font-weight: 500;
-  width: 100%;           /* 👈 añade esto */
-  box-sizing: border-box; /* 👈 y esto */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ============================
@@ -415,6 +416,7 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  overflow: hidden;
   animation: fadeIn 0.2s ease;
 }
 
@@ -504,4 +506,60 @@
 @keyframes slideUp {
   from { transform: translateY(16px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+@media (max-width: 750px) {
+  .reserva-wrapper {
+    padding: 24px 20px;
+  }
+
+  .reserva-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .calendar-column {
+    order: 1;
+    position: static;
+  }
+
+  .form-header h2 {
+    font-size: 2.2rem;
+  }
+
+  .guest-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .guest-banner a {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .fields-row {
+    grid-template-columns: 1fr;
+  }
+
+  .slots-grid button {
+    padding: 7px 10px;
+    font-size: 0.8rem;
+  }
+
+  .modal-overlay {
+    align-items: center;
+    padding: 20px;
+  }
+
+  .modal-card {
+    padding: 28px 20px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 100%;
+  }
 }

@@ -87,7 +87,7 @@
   opacity: 0.3;
   background-color: transparent !important;
   color: #aaa !important;
-  cursor: not-allowed;
+
   border-color: transparent !important;
 }
 
@@ -100,4 +100,18 @@
   border-color: #105453 !important;
   transform: scale(1.08);
   box-shadow: 0 2px 8px rgba(16, 84, 83, 0.3);
+}
+
+/* Lunes: tachados y apagados */
+/* Lunes: siempre se ven apagados y tachados */
+.day-btn.monday-day {
+  opacity: 0.35;
+  color: #999;
+  text-decoration: line-through;
+}
+
+/* Solo bloquea el click si el botón está realmente disabled (usuarios normales) */
+.day-btn:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
 }

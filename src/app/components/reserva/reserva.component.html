@@ -15,12 +15,13 @@
     <!-- Columna izquierda: formulario -->
     <div class="form-column">
       <div class="form-header">
-        <span class="form-label-top">CAN RÚSTIC - GASTRO BAR</span>
+        <span class="form-label-top">Can Rústic · Gastro Bar</span>
         <h2>Reservar Mesa</h2>
+        <div class="form-header-divider"></div>
         <p>Completa los datos y elige tu momento perfecto.</p>
       </div>
 
-      <form (ngSubmit)="onReserva()">
+      <form id="reserva-form" (ngSubmit)="onReserva()">
 
         <div class="fields-row">
           <div class="field">
@@ -84,23 +85,27 @@
               <div class="time-section-label">Comida</div>
               <div class="slots-grid">
                 @for (slot of lunchSlots; track slot) {
-                  <button
-                    type="button"
-                    [class.selected]="startTime() === slot"
-                    (click)="selectTime(slot)"
-                  >{{ slot }}</button>
+                  <button type="button" [class.selected]="startTime() === slot" (click)="selectTime(slot)">
+                    {{ slot }}
+                  </button>
                 }
               </div>
-              <div class="time-section-label">Cena</div>
-              <div class="slots-grid">
-                @for (slot of dinnerSlots; track slot) {
-                  <button
-                    type="button"
-                    [class.selected]="startTime() === slot"
-                    (click)="selectTime(slot)"
-                  >{{ slot }}</button>
-                }
-              </div>
+
+              @if (!isSunday()) {
+                <div class="time-section-label">Cena</div>
+                <div class="slots-grid">
+                  @for (slot of dinnerSlots; track slot) {
+                    <button type="button" [class.selected]="startTime() === slot" (click)="selectTime(slot)">
+                      {{ slot }}
+                    </button>
+                  }
+                </div>
+              } @else {
+                <div class="aviso" style="margin-top: 10px; color: #a67c52;">
+                  <p>ℹ️ Los domingos solo servimos comidas.</p>
+                </div>
+              }
+
               <div class="aviso">
                 <p>ℹ️ Cada reserva tiene una duración de 2 horas.</p>
               </div>
@@ -123,11 +128,6 @@
           </div>
         }
 
-        <button type="submit" class="submit-btn" [disabled]="!isFormValid()">
-          <span>Confirmar Reserva</span>
-          <span class="submit-arrow">→</span>
-        </button>
-
       </form>
     </div>
 
@@ -145,6 +145,15 @@
     </div>
 
   </div>
+
+  <!-- Botón siempre al final -->
+  <div class="submit-wrapper">
+    <button type="submit" form="reserva-form" class="submit-btn" [disabled]="!isFormValid()">
+      <span>Confirmar Reserva</span>
+      <span class="submit-arrow">→</span>
+    </button>
+  </div>
+
 </div>
 
 <!-- Modal de login -->

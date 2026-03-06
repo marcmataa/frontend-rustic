@@ -1,0 +1,193 @@
+/* ============================
+   VARIABLES
+   ============================ */
+:host {
+  --rustic-green: #105453;
+  --rustic-green-dark: #0a3635;
+  --rustic-green-light: #e8f0f0;
+  --rustic-brown: #3b2a1a;
+  --rustic-cream: #faf8f5;
+  --rustic-border: #ddd3c4;
+  --rustic-text-muted: #8a7060;
+}
+
+/* ============================
+   WRAPPER
+   ============================ */
+.carta-wrapper {
+  background: #f5ede0;
+  min-height: 100vh;
+  padding: 60px 20px 80px;
+  font-family: sans-serif;
+}
+
+/* ============================
+   CABECERA
+   ============================ */
+.carta-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.carta-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rustic-green);
+  margin-bottom: 12px;
+}
+
+.carta-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--rustic-brown);
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+
+.carta-divider {
+  width: 48px;
+  height: 3px;
+  background: var(--rustic-green);
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+/* ============================
+   NAVEGACIÓN TABS
+   ============================ */
+.carta-nav {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.carta-nav-btn {
+  padding: 9px 20px;
+  border: 1.5px solid #c9a96e;
+  border-radius: 24px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rustic-text-muted);
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: sans-serif;
+  letter-spacing: 0.03em;
+}
+
+.carta-nav-btn:hover {
+  background: var(--rustic-green);
+  color: #fff;
+  border-color: var(--rustic-green);
+}
+
+.carta-nav-btn.active {
+  background: var(--rustic-green);
+  color: #fff;
+  border-color: var(--rustic-green);
+  box-shadow: 0 4px 12px rgba(16, 84, 83, 0.25);
+}
+
+/* ============================
+   SECCIÓN
+   ============================ */
+.carta-section {
+  max-width: 760px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #e0cdb8;
+  border-radius: 16px;
+  padding: 32px 36px;
+  box-shadow: 0 4px 20px rgba(59, 42, 26, 0.08);
+}
+
+.section-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--rustic-brown);
+  margin: 0 0 8px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--rustic-green);
+  letter-spacing: -0.01em;
+}
+
+/* ============================
+   PLATOS
+   ============================ */
+.dishes-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.dish-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #e0cdb8;
+  gap: 20px;
+  transition: background 0.15s;
+}
+
+.dish-card:last-child {
+  border-bottom: none;
+}
+
+.dish-card:hover {
+  background: rgba(201, 169, 110, 0.08);
+}
+
+.dish-info {
+  flex: 1;
+}
+
+.dish-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--rustic-brown);
+  margin: 0 0 4px;
+  font-family: sans-serif;
+}
+
+.dish-desc {
+  font-size: 0.85rem;
+  color: var(--rustic-text-muted);
+  margin: 0;
+  line-height: 1.55;
+  font-style: italic;
+}
+
+.dish-price {
+  font-family: 'Georgia', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--rustic-green);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+@media (max-width: 600px) {
+  .carta-section {
+    padding: 24px 20px;
+  }
+
+  .dish-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .dish-price {
+    align-self: flex-end;
+  }
+}

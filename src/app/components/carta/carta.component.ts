@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { EditCartaService } from '../../services/edit-carta.service';
 
 @Component({
@@ -13,6 +13,23 @@ export class CartaComponent implements OnInit {
   private editCartaService = inject(EditCartaService);
 // Esta variable lo que hace es que cualquier cambio que le hagamos al signal, se guarde automaticamente aqui
   cartaSignal = this.editCartaService.editCartaSignal;
+
+  categorias = [
+    { key: 'entrantes', label: 'Para Compartir' },
+    { key: 'brasa', label: 'Brasa' },
+    { key: 'burguers', label: 'Burguers' },
+    { key: 'postres', label: 'Postres' },
+  ];
+  
+  categoriaActiva = signal('entrantes');
+
+   categoriaActivaLabel = computed(() =>
+    this.categorias.find(c => c.key === this.categoriaActiva())?.label ?? ''
+  );
+
+  setCategoria(key: string) {
+    this.categoriaActiva.set(key);
+  }
 
   getCategoryDishes(category: string){
     const categoryDishes = this.cartaSignal().filter(dish => dish.category=== category)

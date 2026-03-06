@@ -9,11 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent {
-  // Esta línea es la magia: avisa al componente padre cuando se pulsa una fecha
   @Output() dateSelected = new EventEmitter<Date>();
-  // 2. Este Input recibe la fecha desde el padre
- @Input() selectedDate: Date | null = null;
-  
+  @Input() selectedDate: Date | null = null;
+  @Input() adminMode: boolean = false; // Si es true, no bloquea nada
+
   currentDate = signal(new Date());
 
   get daysInMonth(): number[] {
@@ -24,43 +23,47 @@ export class CalendarComponent {
   }
 
   selectDate(day: number) {
+    if (this.isDisabled(day)) return; // Bloquea el click si está deshabilitado
     const selected = new Date(this.currentDate().getFullYear(), this.currentDate().getMonth(), day);
-    this.dateSelected.emit(selected); // <--- Aquí enviamos la fecha seleccionada
+    this.dateSelected.emit(selected);
   }
-  // En calendar.component.ts
-changeMonth(delta: number) {
-  const newDate = new Date(this.currentDate());
-  newDate.setMonth(newDate.getMonth() + delta);
-  this.currentDate.set(newDate);
-}
-// Añade esto dentro de tu clase CalendarComponent
-meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-diasSemana: string[] = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
 
-// Verifica si el día es anterior a hoy
+  changeMonth(delta: number) {
+    const newDate = new Date(this.currentDate());
+    newDate.setMonth(newDate.getMonth() + delta);
+    this.currentDate.set(newDate);
+  }
+
+  meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  diasSemana: string[] = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+
   isPast(day: number): boolean {
     const checkDate = new Date(this.currentDate().getFullYear(), this.currentDate().getMonth(), day);
     const today = new Date();
-    today.setHours(0,0,0,0); // Reseteamos horas para comparar solo fechas
+    today.setHours(0, 0, 0, 0);
     return checkDate < today;
   }
 
-  // Verifica si el día es el que el usuario ha seleccionado
   isSelected(day: number): boolean {
-  if (!this.selectedDate) return false; // Si es null, nada está seleccionado
+    if (!this.selectedDate) return false;
+    const d = new Date(this.currentDate().getFullYear(), this.currentDate().getMonth(), day);
+    return d.toDateString() === this.selectedDate.toDateString();
+  }
 
-  const d = new Date(this.currentDate().getFullYear(), this.currentDate().getMonth(), day);
-  return d.toDateString() === this.selectedDate.toDateString();
+  isMonday(day: number): boolean {
+    const d = new Date(this.currentDate().getFullYear(), this.currentDate().getMonth(), day);
+    return d.getDay() === 1;
+  }
+
+  // Solo bloquea si NO es admin
+  isDisabled(day: number): boolean {
+  if (this.adminMode) return false; // Admin nunca tiene nada bloqueado
+  return this.isPast(day) || this.isMonday(day);
 }
 
-get firstDayOffset(): number[] {
-  // Obtenemos el día de la semana en que cae el día 1 (0=Domingo, 1=Lunes...)
-  const firstDay = new Date(this.currentDate().getFullYear(), this.currentDate().getMonth(), 1).getDay();
-  
-  // Ajustamos: Sunday(0) -> 6, Mon(1) -> 0, Tue(2) -> 1 ...
-  // Esto hace que el lunes sea el día 0 y el domingo el día 6
-  const offset = (firstDay + 6) % 7; 
-  
-  return Array.from({ length: offset }, (_, i) => i);
-}
+  get firstDayOffset(): number[] {
+    const firstDay = new Date(this.currentDate().getFullYear(), this.currentDate().getMonth(), 1).getDay();
+    const offset = (firstDay + 6) % 7;
+    return Array.from({ length: offset }, (_, i) => i);
+  }
 }

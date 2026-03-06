@@ -1,37 +1,39 @@
-<section>
-    <h1>Para Compartir</h1>
-    @for (dish of getCategoryDishes ('entrantes'); track dish._id){
-        <h3>{{dish.name}}</h3>
-        <span>{{dish.price}}€</span>
+<div class="carta-wrapper">
+
+  <div class="carta-header">
+    <span class="carta-label">CAN RÚSTIC · GASTRO BAR</span>
+    <h1 class="carta-title">Nuestra Carta</h1>
+    <div class="carta-divider"></div>
+  </div>
+
+  <!-- Tabs de categoría -->
+  <nav class="carta-nav">
+    @for (cat of categorias; track cat.key) {
+      <button
+        class="carta-nav-btn"
+        [class.active]="cat.key === categoriaActiva()"
+        (click)="setCategoria(cat.key)">
+        {{ cat.label }}
+      </button>
     }
-</section>
-<section>
-    <h1>Brasa</h1>
-     @for (dish of getCategoryDishes ('brasa'); track dish._id){
-        <h3>{{dish.name}}</h3>
-        <span>{{dish.price}}€</span>
-    }
-</section>
-<section>
-    <h1>Burguers</h1>
-     @for (dish of getCategoryDishes ('burguers'); track dish._id){
-        <h3>{{dish.name}}</h3>
-        <p>{{dish.description}}</p>
-        <span>{{dish.price}}€</span>
-    }
-</section>
-<section>
-    <h1>Cocas</h1>
-     @for (dish of getCategoryDishes ('cocas'); track dish._id){
-        <h3>{{dish.name}}</h3>
-        <p>{{dish.description}}</p>
-        <span>{{dish.price}}€</span>
-    }
-</section>
-<section>
-    <h1>Postres</h1>
-     @for (dish of getCategoryDishes ('postres'); track dish._id){
-        <h3>{{dish.name}}</h3>
-        <span>{{dish.price}}€</span>
-    } 
-</section>
+  </nav>
+
+  <!-- Platos de la categoría activa -->
+  <section class="carta-section">
+    <h2 class="section-title">{{ categoriaActivaLabel() }}</h2>
+    <div class="dishes-grid">
+      @for (dish of getCategoryDishes(categoriaActiva()); track dish._id) {
+        <div class="dish-card">
+          <div class="dish-info">
+            <h3 class="dish-name">{{ dish.name }}</h3>
+            @if (dish.description) {
+              <p class="dish-desc">{{ dish.description }}</p>
+            }
+          </div>
+          <span class="dish-price">{{ dish.price }}€</span>
+        </div>
+      }
+    </div>
+  </section>
+
+</div>

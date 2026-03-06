@@ -136,3 +136,134 @@
   background-color: var(--bg-cream);
   color: var(--rustic-brown) !important;
 }
+
+/* ============================
+   HAMBURGUESA
+   ============================ */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--bg-cream);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ============================
+   MENÚ MÓVIL
+   ============================ */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none; /* 👈 clave — no intercepta clicks cuando está cerrado */
+}
+
+.mobile-menu.open {
+  pointer-events: all; /* 👈 solo activo cuando está abierto */
+}
+
+.mobile-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-menu.open .mobile-overlay {
+  opacity: 1;
+}
+.mobile-nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100%;
+  background: var(--rustic-green);
+  display: flex;
+  flex-direction: column;
+  padding: 100px 32px 40px;
+  gap: 8px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-menu.open .mobile-nav {
+  transform: translateX(0);
+}
+
+.mobile-nav a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: color 0.2s;
+}
+
+.mobile-nav a:hover {
+  color: #fff;
+}
+
+.mobile-nav-btn {
+  margin-top: 16px;
+  background: #c9a96e !important;
+  color: var(--rustic-brown) !important;
+  padding: 12px 20px !important;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 700 !important;
+  border-bottom: none !important;
+}
+
+/* ============================
+   RESPONSIVE NAVBAR
+   ============================ */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 20px;
+  }
+
+  .nav-center,
+  .nav-right {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+  .logo img {
+    height: 60px;
+  }
+}

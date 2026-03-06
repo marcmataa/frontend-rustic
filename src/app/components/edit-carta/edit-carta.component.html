@@ -1,77 +1,316 @@
-<div>
-    <div>
-        <h2>Modificar Carta</h2>
-        <p>Añade, modifica y elimina productos</p>
-       
-    </div>
+<div class="admin-wrapper">
 
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Categoría</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <input type="text" [(ngModel)]="newDish.name" placeholder="Nuevo nombre...">
-                    </td>
-                    <td>
-                        <input type="text" [(ngModel)]="newDish.description" placeholder="Nueva descripción...">
-                    </td>
-                    <td>
-                        <input type="number" [(ngModel)]="newDish.price">
-                    </td>
-                    <td>
-                        <select [(ngModel)]="newDish.category">
-                            <option value="entrantes">Entrantes</option>
-                            <option value="burguers">Burguers</option>
-                            <option value="brasa">Brasa</option>
-                            <option value="cocas">Cocas</option>
-                            <option value="postres">Postres</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button (click)="createDishes(newDish)">➕ Guardar Nuevo Producto</button>
-                    </td>
-                </tr>
+  <!-- TOAST -->
+  @if (toast) {
+    <div class="toast">{{ toast }}</div>
+  }
 
-                @for (dishes of editCarta(); track dishes._id) {
-                <tr>
-                    <td>
-                        <input type="text" [(ngModel)]="dishes.name">
-                    </td>
-                    <td>
-                        <input type="text" [(ngModel)]="dishes.description">
-                    </td>
-                    <td>
-                        <input type="number" [(ngModel)]="dishes.price">
-                    </td>
-                    <td>
-                        <select [(ngModel)]="dishes.category">
-                            <option value="entrantes">Entrantes</option>
-                            <option value="burguers">Burguers</option>
-                            <option value="brasa">Brasa</option>
-                            <option value="cocas">Cocas</option>
-                            <option value="postres">Postres</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button (click)="updateDishes(dishes)">💾 Guardar</button>
-                        <button (click)="deleteDishes(dishes)">🗑️ Eliminar</button>
-                    </td>
-                </tr>
-                } @empty {
-                <tr>
-                    <td colspan="5">Cargando productos...</td>
-                </tr>
-                }
-            </tbody>
-        </table>
+  <!-- CABECERA -->
+  <div class="admin-header">
+    <h2 class="admin-title">Modificar Carta</h2>
+    <p class="admin-subtitle">Añade, modifica y elimina productos</p>
+  </div>
+
+  <!-- PANEL CREAR NUEVO -->
+  <div class="creation-panel">
+    <h3>Añadir nuevo producto</h3>
+    <div class="create-grid">
+      <input type="text"   [(ngModel)]="newDish.name"        placeholder="Nombre del plato" />
+      <input type="text"   [(ngModel)]="newDish.description" placeholder="Descripción breve" />
+      <div class="create-price-wrap">
+        <input type="number" [(ngModel)]="newDish.price" placeholder="Precio" />
+        <span>€</span>
+      </div>
+      <select [(ngModel)]="newDish.category">
+        <option value="entrantes">Para Compartir</option>
+        <option value="burguers">Burguers</option>
+        <option value="brasa">Brasa</option>
+        <option value="cocas">Cocas</option>
+        <option value="postres">Postres</option>
+      </select>
+      <button class="btn-create" (click)="createDishes(newDish)">+ Añadir Plato</button>
     </div>
+  </div>
+
+  <!-- RADIO BUTTONS (invisibles, controlan los tabs) -->
+  <input type="radio" name="cat-tab" class="cat-radio" id="tab-entrantes" checked />
+  <input type="radio" name="cat-tab" class="cat-radio" id="tab-burguers" />
+  <input type="radio" name="cat-tab" class="cat-radio" id="tab-brasa" />
+  <input type="radio" name="cat-tab" class="cat-radio" id="tab-cocas" />
+  <input type="radio" name="cat-tab" class="cat-radio" id="tab-postres" />
+
+  <!-- NAV TABS -->
+  <nav class="carta-nav">
+    <label class="carta-nav-btn" for="tab-entrantes">Para Compartir <span class="cat-count">({{ getByCategory('entrantes').length }})</span></label>
+    <label class="carta-nav-btn" for="tab-burguers">Burguers <span class="cat-count">({{ getByCategory('burguers').length }})</span></label>
+    <label class="carta-nav-btn" for="tab-brasa">Brasa <span class="cat-count">({{ getByCategory('brasa').length }})</span></label>
+    <label class="carta-nav-btn" for="tab-cocas">Cocas <span class="cat-count">({{ getByCategory('cocas').length }})</span></label>
+    <label class="carta-nav-btn" for="tab-postres">Postres <span class="cat-count">({{ getByCategory('postres').length }})</span></label>
+  </nav>
+
+  <!-- PARA COMPARTIR -->
+  <div class="carta-section" id="section-entrantes">
+    <h3 class="section-title">Para Compartir</h3>
+    <div class="products-list">
+      @for (dish of getByCategory('entrantes'); track dish._id) {
+        <div class="product-card" [class.editing]="editingId === dish._id">
+
+          @if (editingId !== dish._id) {
+            <div class="dish-read">
+              <div class="dish-read-info">
+                <p class="dish-read-name">{{ dish.name }}</p>
+                <p class="dish-read-desc">{{ dish.description }}</p>
+              </div>
+              <span class="dish-read-price">{{ dish.price }}€</span>
+            </div>
+            <div class="read-actions">
+              <button class="btn-edit" (click)="openEdit(dish._id)">
+                <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Editar
+              </button>
+            </div>
+          }
+
+          @if (editingId === dish._id) {
+            <div class="edit-fields">
+              <input class="edit-name" type="text" [(ngModel)]="dish.name" placeholder="Nombre" />
+              <div class="edit-price-wrap">
+                <input type="number" [(ngModel)]="dish.price" placeholder="Precio" />
+                <span>€</span>
+              </div>
+              <textarea class="edit-desc" [(ngModel)]="dish.description" placeholder="Descripción" rows="2"></textarea>
+              <select class="edit-category" [(ngModel)]="dish.category">
+                <option value="entrantes">Para Compartir</option>
+                <option value="burguers">Burguers</option>
+                <option value="brasa">Brasa</option>
+                <option value="cocas">Cocas</option>
+                <option value="postres">Postres</option>
+              </select>
+            </div>
+            <div class="edit-actions">
+              <button class="btn-save"   (click)="updateDishes(dish)">Guardar</button>
+              <button class="btn-cancel" (click)="closeEdit()">Cancelar</button>
+              <button class="btn-delete" (click)="deleteDishes(dish)">Eliminar</button>
+            </div>
+          }
+
+        </div>
+      } @empty {
+        <p class="empty-state">No hay platos en esta categoría.</p>
+      }
+    </div>
+  </div>
+
+  <!-- BURGUERS -->
+  <div class="carta-section" id="section-burguers">
+    <h3 class="section-title">Burguers</h3>
+    <div class="products-list">
+      @for (dish of getByCategory('burguers'); track dish._id) {
+        <div class="product-card" [class.editing]="editingId === dish._id">
+
+          @if (editingId !== dish._id) {
+            <div class="dish-read">
+              <div class="dish-read-info">
+                <p class="dish-read-name">{{ dish.name }}</p>
+                <p class="dish-read-desc">{{ dish.description }}</p>
+              </div>
+              <span class="dish-read-price">{{ dish.price }}€</span>
+            </div>
+            <div class="read-actions">
+              <button class="btn-edit" (click)="openEdit(dish._id)">
+                <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Editar
+              </button>
+            </div>
+          }
+
+          @if (editingId === dish._id) {
+            <div class="edit-fields">
+              <input class="edit-name" type="text" [(ngModel)]="dish.name" placeholder="Nombre" />
+              <div class="edit-price-wrap">
+                <input type="number" [(ngModel)]="dish.price" placeholder="Precio" />
+                <span>€</span>
+              </div>
+              <textarea class="edit-desc" [(ngModel)]="dish.description" placeholder="Descripción" rows="2"></textarea>
+              <select class="edit-category" [(ngModel)]="dish.category">
+                <option value="entrantes">Para Compartir</option>
+                <option value="burguers">Burguers</option>
+                <option value="brasa">Brasa</option>
+                <option value="cocas">Cocas</option>
+                <option value="postres">Postres</option>
+              </select>
+            </div>
+            <div class="edit-actions">
+              <button class="btn-save"   (click)="updateDishes(dish)">Guardar</button>
+              <button class="btn-cancel" (click)="closeEdit()">Cancelar</button>
+              <button class="btn-delete" (click)="deleteDishes(dish)">Eliminar</button>
+            </div>
+          }
+
+        </div>
+      } @empty {
+        <p class="empty-state">No hay platos en esta categoría.</p>
+      }
+    </div>
+  </div>
+
+  <!-- BRASA -->
+  <div class="carta-section" id="section-brasa">
+    <h3 class="section-title">Brasa</h3>
+    <div class="products-list">
+      @for (dish of getByCategory('brasa'); track dish._id) {
+        <div class="product-card" [class.editing]="editingId === dish._id">
+
+          @if (editingId !== dish._id) {
+            <div class="dish-read">
+              <div class="dish-read-info">
+                <p class="dish-read-name">{{ dish.name }}</p>
+                <p class="dish-read-desc">{{ dish.description }}</p>
+              </div>
+              <span class="dish-read-price">{{ dish.price }}€</span>
+            </div>
+            <div class="read-actions">
+              <button class="btn-edit" (click)="openEdit(dish._id)">
+                <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Editar
+              </button>
+            </div>
+          }
+
+          @if (editingId === dish._id) {
+            <div class="edit-fields">
+              <input class="edit-name" type="text" [(ngModel)]="dish.name" placeholder="Nombre" />
+              <div class="edit-price-wrap">
+                <input type="number" [(ngModel)]="dish.price" placeholder="Precio" />
+                <span>€</span>
+              </div>
+              <textarea class="edit-desc" [(ngModel)]="dish.description" placeholder="Descripción" rows="2"></textarea>
+              <select class="edit-category" [(ngModel)]="dish.category">
+                <option value="entrantes">Para Compartir</option>
+                <option value="burguers">Burguers</option>
+                <option value="brasa">Brasa</option>
+                <option value="cocas">Cocas</option>
+                <option value="postres">Postres</option>
+              </select>
+            </div>
+            <div class="edit-actions">
+              <button class="btn-save"   (click)="updateDishes(dish)">Guardar</button>
+              <button class="btn-cancel" (click)="closeEdit()">Cancelar</button>
+              <button class="btn-delete" (click)="deleteDishes(dish)">Eliminar</button>
+            </div>
+          }
+
+        </div>
+      } @empty {
+        <p class="empty-state">No hay platos en esta categoría.</p>
+      }
+    </div>
+  </div>
+
+  <!-- COCAS -->
+  <div class="carta-section" id="section-cocas">
+    <h3 class="section-title">Cocas</h3>
+    <div class="products-list">
+      @for (dish of getByCategory('cocas'); track dish._id) {
+        <div class="product-card" [class.editing]="editingId === dish._id">
+
+          @if (editingId !== dish._id) {
+            <div class="dish-read">
+              <div class="dish-read-info">
+                <p class="dish-read-name">{{ dish.name }}</p>
+                <p class="dish-read-desc">{{ dish.description }}</p>
+              </div>
+              <span class="dish-read-price">{{ dish.price }}€</span>
+            </div>
+            <div class="read-actions">
+              <button class="btn-edit" (click)="openEdit(dish._id)">
+                <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Editar
+              </button>
+            </div>
+          }
+
+          @if (editingId === dish._id) {
+            <div class="edit-fields">
+              <input class="edit-name" type="text" [(ngModel)]="dish.name" placeholder="Nombre" />
+              <div class="edit-price-wrap">
+                <input type="number" [(ngModel)]="dish.price" placeholder="Precio" />
+                <span>€</span>
+              </div>
+              <textarea class="edit-desc" [(ngModel)]="dish.description" placeholder="Descripción" rows="2"></textarea>
+              <select class="edit-category" [(ngModel)]="dish.category">
+                <option value="entrantes">Para Compartir</option>
+                <option value="burguers">Burguers</option>
+                <option value="brasa">Brasa</option>
+                <option value="cocas">Cocas</option>
+                <option value="postres">Postres</option>
+              </select>
+            </div>
+            <div class="edit-actions">
+              <button class="btn-save"   (click)="updateDishes(dish)">Guardar</button>
+              <button class="btn-cancel" (click)="closeEdit()">Cancelar</button>
+              <button class="btn-delete" (click)="deleteDishes(dish)">Eliminar</button>
+            </div>
+          }
+
+        </div>
+      } @empty {
+        <p class="empty-state">No hay platos en esta categoría.</p>
+      }
+    </div>
+  </div>
+
+  <!-- POSTRES -->
+  <div class="carta-section" id="section-postres">
+    <h3 class="section-title">Postres</h3>
+    <div class="products-list">
+      @for (dish of getByCategory('postres'); track dish._id) {
+        <div class="product-card" [class.editing]="editingId === dish._id">
+
+          @if (editingId !== dish._id) {
+            <div class="dish-read">
+              <div class="dish-read-info">
+                <p class="dish-read-name">{{ dish.name }}</p>
+                <p class="dish-read-desc">{{ dish.description }}</p>
+              </div>
+              <span class="dish-read-price">{{ dish.price }}€</span>
+            </div>
+            <div class="read-actions">
+              <button class="btn-edit" (click)="openEdit(dish._id)">
+                <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Editar
+              </button>
+            </div>
+          }
+
+          @if (editingId === dish._id) {
+            <div class="edit-fields">
+              <input class="edit-name" type="text" [(ngModel)]="dish.name" placeholder="Nombre" />
+              <div class="edit-price-wrap">
+                <input type="number" [(ngModel)]="dish.price" placeholder="Precio" />
+                <span>€</span>
+              </div>
+              <textarea class="edit-desc" [(ngModel)]="dish.description" placeholder="Descripción" rows="2"></textarea>
+              <select class="edit-category" [(ngModel)]="dish.category">
+                <option value="entrantes">Para Compartir</option>
+                <option value="burguers">Burguers</option>
+                <option value="brasa">Brasa</option>
+                <option value="cocas">Cocas</option>
+                <option value="postres">Postres</option>
+              </select>
+            </div>
+            <div class="edit-actions">
+              <button class="btn-save"   (click)="updateDishes(dish)">Guardar</button>
+              <button class="btn-cancel" (click)="closeEdit()">Cancelar</button>
+              <button class="btn-delete" (click)="deleteDishes(dish)">Eliminar</button>
+            </div>
+          }
+
+        </div>
+      } @empty {
+        <p class="empty-state">No hay platos en esta categoría.</p>
+      }
+    </div>
+  </div>
+
 </div>

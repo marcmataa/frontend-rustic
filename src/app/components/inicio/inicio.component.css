@@ -31,7 +31,6 @@
   animation: heroFadeIn 1s ease forwards;
 }
 
-/* Etiqueta superior */
 .hero-label {
   display: flex;
   align-items: center;
@@ -53,7 +52,6 @@
   background: rgba(201, 169, 110, 0.6);
 }
 
-/* Título principal */
 .hero-title {
   font-family: 'Playfair Display', serif;
   font-size: clamp(3.5rem, 8vw, 7rem);
@@ -65,7 +63,6 @@
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
-/* Subtítulo */
 .hero-subtitle {
   font-family: 'Georgia', serif;
   font-size: clamp(1rem, 2.5vw, 1.3rem);
@@ -77,7 +74,6 @@
   max-width: 500px;
 }
 
-/* Botones */
 .hero-buttons {
   display: flex;
   gap: 14px;
@@ -100,7 +96,6 @@
   cursor: pointer;
 }
 
-/* Botón primario — verde sólido */
 .hero-btn-primary {
   background: #105453;
   color: #fff;
@@ -114,7 +109,6 @@
   box-shadow: 0 8px 24px rgba(16, 84, 83, 0.4);
 }
 
-/* Botón secundario — outline blanco */
 .hero-btn-secondary {
   background: transparent;
   color: #fff;
@@ -134,40 +128,37 @@
   z-index: 1;
 }
 
-/* Animación de entrada */
 @keyframes heroFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive móvil */
 @media (max-width: 600px) {
-  .hero {
-    background-attachment: scroll;
-  }
-
   .hero-buttons {
+    display: flex;
     flex-direction: column;
+    align-items: center; 
     width: 100%;
-    max-width: 280px;
+    margin: 0 auto; 
+    gap: 14px;
   }
 
   .hero-btn {
-    width: 100%;
+    width: 260px; 
+    
   }
 }
+  .hero-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+  }
+
 
 /* ============================
-   SECCIÓN QUIÉNES SOMOS
+   QUIÉNES SOMOS
    ============================ */
 .about {
-  background: #faf8f5;
+  background: #f5ede0;
   padding: 100px 20px;
   font-family: sans-serif;
 }
@@ -180,20 +171,6 @@
   gap: 80px;
   align-items: center;
 }
-
-@media (max-width: 800px) {
-  .about-container {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-  .about-image-wrapper {
-    order: -1;
-  }
-}
-
-/* ============================
-   TEXTO
-   ============================ */
 
 .about-title {
   font-family: 'Playfair Display', 'Georgia', serif;
@@ -224,25 +201,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 8px;
+  flex-wrap: wrap; /* 👈 añade esto */
   margin-top: 32px;
   padding-top: 24px;
   border-top: 2px solid var(--rustic-green);
   font-family: 'Georgia', serif;
-  font-size: 0.88rem;
+  font-size: 0.85rem; /* 👈 reduce un poco */
   color: var(--rustic-green);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 600;
+  text-align: center;
 }
 
 .about-footer-dot {
   color: var(--rustic-brown);
   font-weight: 700;
 }
-/* ============================
-   IMAGEN
-   ============================ */
+
 .about-image-wrapper {
   position: relative;
   padding-bottom: 18px;
@@ -257,31 +234,37 @@
   box-shadow: 0 20px 60px rgba(59, 42, 26, 0.15);
 }
 
-.about-image-badge {
-  position: absolute;
-  bottom: 0;
-  left: 32px;
-  background: #105453;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  box-shadow: 0 8px 24px rgba(16, 84, 83, 0.3);
+@media (max-width: 800px) {
+  .about {
+    padding: 60px 20px;
+  }
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .about-image-wrapper {
+    order: -1;
+  }
+  .about-image {
+    height: 280px;
+  }
+  .about-title {
+    text-align: center; /* 👈 */
+  }
+  .about-divider {
+    margin: 0 auto 24px; /* 👈 centra la línea */
+  }
+  .about-description {
+    text-align: center; /* 👈 */
+  }
 }
-
 
 /* ============================
    GALERÍA DE COMIDA
    ============================ */
 .food-gallery {
   background: var(--rustic-green);
-  padding: 80px 0;
+  padding: 80px 40px;
   font-family: sans-serif;
   overflow: hidden;
 }
@@ -289,7 +272,6 @@
 .food-gallery-header {
   text-align: center;
   margin-bottom: 48px;
-  padding: 0 20px;
 }
 
 .food-gallery-label {
@@ -319,67 +301,33 @@
   margin: 0 auto;
 }
 
-/* ============================
-   BANDA DESLIZANTE
-   ============================ */
-.food-track-wrapper {
-  width: 100%;
-  overflow: hidden;
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
+.food-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.food-track {
-  display: flex;
-  gap: 20px;
-  width: max-content;
-  animation: foodScroll 18s linear infinite;
-}
-
-.food-track:hover {
-  animation-play-state: paused;
-}
-
-@keyframes foodScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* ============================
-   TARJETAS
-   ============================ */
 .food-card {
   position: relative;
-  width: 320px;
-  height: 240px;
+  height: 260px;
   border-radius: 14px;
   overflow: hidden;
-  flex-shrink: 0;
-  cursor: pointer;
 }
 
 .food-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  object-position: center;
   display: block;
+  transition: transform 0.4s ease;
 }
 
 .food-card:hover img {
-  transform: scale(1.06);
+  transform: scale(1.05);
 }
 
 .food-card-label {
@@ -387,22 +335,18 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 28px 16px 14px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.65));
+  padding: 36px 16px 14px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
   color: #fff;
-  font-size: 0.92rem;
-  font-weight: 600;
   font-family: 'Georgia', serif;
-  letter-spacing: 0.02em;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
 }
 
-/* ============================
-   FOOTER
-   ============================ */
 .food-gallery-footer {
   text-align: center;
-  margin-top: 48px;
-  padding: 0 20px;
+  margin-top: 40px;
 }
 
 .food-gallery-btn {
@@ -423,14 +367,24 @@
   color: var(--rustic-green);
 }
 
-
-
+@media (max-width: 700px) {
+  .food-gallery {
+    padding: 60px 20px;
+  }
+  .food-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .food-card {
+    height: 220px;
+  }
+}
 
 /* ============================
    SECCIÓN CONTACTO
    ============================ */
 .contact {
-  background: #faf8f5;
+  background: #f5ede0;
   padding: 100px 20px;
   font-family: sans-serif;
 }
@@ -457,9 +411,6 @@
   margin: 0 auto;
 }
 
-/* ============================
-   LAYOUT
-   ============================ */
 .contact-container {
   max-width: 1100px;
   margin: 0 auto;
@@ -469,15 +420,6 @@
   align-items: stretch;
 }
 
-@media (max-width: 800px) {
-  .contact-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================
-   MAPA
-   ============================ */
 .contact-map {
   border-radius: 16px;
   overflow: hidden;
@@ -495,9 +437,6 @@
   border: 0;
 }
 
-/* ============================
-   INFO
-   ============================ */
 .contact-info {
   display: flex;
   flex-direction: column;
@@ -558,9 +497,6 @@
   text-decoration: underline;
 }
 
-/* ============================
-   HORARIOS
-   ============================ */
 .hours-list {
   display: flex;
   flex-direction: column;
@@ -572,7 +508,7 @@
   flex-direction: column;
   gap: 2px;
   padding-bottom: 10px;
-   border-bottom: 1px solid #f0e8d8;
+  border-bottom: 1px solid #f0e8d8;
 }
 
 .hours-item:last-child {
@@ -588,11 +524,27 @@
 
 .hours-time {
   font-size: 0.85rem;
- color: #8a7060;
+  color: #8a7060;
 }
 
 .hours-closed {
   font-size: 0.85rem;
   color: #c0392b;
   font-weight: 600;
+}
+
+@media (max-width: 800px) {
+  .contact {
+    padding: 60px 20px;
+  }
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .contact-map {
+    min-height: 300px;
+  }
+  .contact-map iframe {
+    min-height: 300px;
+  }
 }

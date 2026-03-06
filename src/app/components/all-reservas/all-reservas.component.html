@@ -1,9 +1,14 @@
+<div class="reservas-header">
+  <h1 class="reservas-header-title">Reservas</h1>
+  <p class="reservas-header-sub">Consulta, crea y gestiona las reservas</p>
+</div>
+
 <div class="dashboard-container">
   <aside class="left-pane">
     <div class="calendar-card">
       <h2 class="card-title">Calendario</h2>
-      <app-calendar [selectedDate]="selectedDate()" (dateSelected)="onDateReceived($event)">
-      </app-calendar>
+      <app-calendar [selectedDate]="selectedDate()" [adminMode]="true" (dateSelected)="onDateReceived($event)">
+</app-calendar>
     </div>
   </aside>
 
@@ -18,61 +23,31 @@
 
       <div *ngIf="showCreateForm" class="create-form-wrapper">
         <h3 style="margin-top: 0; color: #4a3728">Nueva Reserva</h3>
-
         <div class="form-grid">
           <div class="input-field">
             <label>Nombre</label>
             <input type="text" [(ngModel)]=" reservas.name" />
           </div>
-
           <div class="input-field">
             <label>Apellido</label>
             <input type="text" [(ngModel)]="reservas.surname" />
           </div>
-
           <div class="input-field">
             <label>Teléfono</label>
             <input type="text" [(ngModel)]="reservas.phone" />
           </div>
-
           <div class="input-field" style="width: 80px">
             <label>Comensales</label>
             <input type="number" [(ngModel)]="reservas.guests" />
           </div>
-
           <div class="input-field" style="width: 100px">
             <label>Fecha</label>
-            <input
-              type="text"
-              [value]="selectedDate() | date: 'dd/MM/yyyy'"
-              readonly
-              style="background: #f0f0f0"
-            />
+            <input type="text" [value]="selectedDate() | date: 'dd/MM/yyyy'" readonly style="background: #f0f0f0" />
           </div>
-
           <div class="input-field" style="position: relative">
             <label>Hora</label>
-            <input
-              type="text"
-              [(ngModel)]="reservas.startTime"
-              (click)="toggleTimePicker()"
-              readonly
-              placeholder="--:--"
-              style="cursor: pointer"
-            />
-
-            <div
-              *ngIf="isTimePickerVisible()"
-              style="
-                position: absolute;
-                z-index: 10;
-                background: white;
-                border: 1px solid #ccc;
-                padding: 10px;
-                width: 250px;
-                top: 70px;
-              "
-            >
+            <input type="text" [(ngModel)]="reservas.startTime" (click)="toggleTimePicker()" readonly placeholder="--:--" style="cursor: pointer" />
+            <div *ngIf="isTimePickerVisible()" style="position: absolute; z-index: 10; background: white; border: 1px solid #ccc; padding: 10px; width: 250px; top: 70px;">
               <div style="display: flex; gap: 15px">
                 <div>
                   <h4 style="margin: 0; font-size: 0.8em">Comida</h4>
@@ -89,14 +64,20 @@
               </div>
             </div>
           </div>
-
-          <button (click)="createReserva()" class="btn-save-compact btn-save-centered">
-            💾 Crear Reserva
-          </button>
+          <button (click)="createReserva()" class="btn-save-compact btn-save-centered">💾 Crear Reserva</button>
         </div>
       </div>
+
       <div class="table-wrapper" *ngIf="filteredReservas().length > 0; else noReservas">
         <table class="rustic-table">
+          <colgroup>
+            <col style="width:17%">
+            <col style="width:13%">
+            <col style="width:10%">
+            <col style="width:14%">
+            <col style="width:18%">
+            <col style="width:28%">
+          </colgroup>
           <thead>
             <tr>
               <th>Cliente</th>
@@ -108,69 +89,38 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let r of filteredReservas()">
-              <td>{{ r.name }} {{ r.surname }}</td>
-              <td>{{ r.phone }}</td>
+  <tr *ngFor="let r of filteredReservas()">
+    <td data-label="Cliente">{{ r.name }} {{ r.surname }}</td>
+    <td data-label="Teléfono">{{ r.phone }}</td>
 
-              <td>
-                <span *ngIf="editingId !== r._id">{{ r.guests }}</span>
-                <input
-                  *ngIf="editingId === r._id"
-                  type="number"
-                  class="edit-input"
-                  [(ngModel)]="tempReserva.guests"
-                />
-              </td>
+    <td data-label="Comensales">
+      <span *ngIf="editingId !== r._id">{{ r.guests }}</span>
+      <input *ngIf="editingId === r._id" type="number" class="edit-input" [(ngModel)]="tempReserva.guests" />
+    </td>
 
-              <td style="white-space: nowrap">
-                {{ r.startTime | date: 'HH:mm' }} - {{ r.endTime | date: 'HH:mm' }}
-              </td>
+    <td data-label="Hora" style="white-space: nowrap">
+      {{ r.startTime | date: 'HH:mm' }} - {{ r.endTime | date: 'HH:mm' }}
+    </td>
 
-              <td>
-                <span
-                  class="status-badge"
-                  [ngClass]="'status-' + r.status"
-                  *ngIf="editingId !== r._id"
-                >
-                  {{ r.status.replace('_', ' ') | uppercase }}
-                </span>
-                <select
-                  *ngIf="editingId === r._id"
-                  [(ngModel)]="tempReserva.status"
-                  class="edit-select"
-                >
-                  <option value="confirmada">Confirmada</option>
-                  <option value="en_sala">En Sala</option>
-                  <option value="completada">Completada</option>
-                  <option value="cancelada">Cancelada</option>
-                </select>
-              </td>
+    <td data-label="Estado">
+      <span class="status-badge" [ngClass]="'status-' + r.status" *ngIf="editingId !== r._id">
+        {{ r.status.replace('_', ' ') | uppercase }}
+      </span>
+      <select *ngIf="editingId === r._id" [(ngModel)]="tempReserva.status" class="edit-select">
+        <option value="confirmada">Confirmada</option>
+        <option value="en_sala">En Sala</option>
+        <option value="completada">Completada</option>
+        <option value="cancelada">Cancelada</option>
+      </select>
+    </td>
 
-              <td class="table-actions">
-                <button
-                  *ngIf="editingId !== r._id"
-                  (click)="startEdit(r)"
-                  class="btn-tab btn-tab-edit"
-                >
-                  ✏️ Editar
-                </button>
-                <button
-                  *ngIf="editingId === r._id"
-                  (click)="saveEdit()"
-                  class="btn-tab btn-tab-save"
-                >
-                  💾 Guardar
-                </button>
-                <button
-                  *ngIf="editingId === r._id"
-                  (click)="cancelEdit()"
-                  class="btn-tab btn-tab-cancel"
-                >
-                  ❌ Cancelar
-                </button>
-              </td>
-            </tr>
-          </tbody>
+    <td data-label="Acciones" class="table-actions">
+      <button *ngIf="editingId !== r._id" (click)="startEdit(r)" class="btn-tab btn-tab-edit">✏️ Editar</button>
+      <button *ngIf="editingId === r._id" (click)="saveEdit()" class="btn-tab btn-tab-save">💾 Guardar</button>
+      <button *ngIf="editingId === r._id" (click)="cancelEdit()" class="btn-tab btn-tab-cancel">❌ Cancelar</button>
+    </td>
+  </tr>
+</tbody>
         </table>
       </div>
 
