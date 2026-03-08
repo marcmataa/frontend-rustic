@@ -138,3 +138,4 @@ https://github.com/marcmataa/backend-rustic
 ### Diagrama de Flujo
 ![Diagrama de Flujo](./docs/flujo-can-rustic.png)
 
+
