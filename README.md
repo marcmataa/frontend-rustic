@@ -127,3 +127,15 @@ El backend de esta aplicación está desarrollado con Node.js y MongoDB.
 
 Repositorio backend:
 https://github.com/marcmataa/backend-rustic
+
+---
+
+## 📑 Documentación Técnica
+
+### Diagrama de Casos de Uso
+![Diagrama de Casos de Uso](./docs/uso-de-casos-can-rustic.png)
+
+### Diagrama de Flujo
+![Diagrama de Flujo](./docs/flujo-can-rustic.png)
+
+
