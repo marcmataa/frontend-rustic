@@ -360,3 +360,93 @@
   background-color: var(--rustic-green-dark);
   transform: translateY(-1px);
 }
+
+/* ============================
+   CORRECCIÓN RESPONSIVE RESERVAS
+   ============================ */
+@media (max-width: 600px) {
+  /* 1. RESETEAMOS EL WRAPPER Y EL GRID */
+  .dashboard-container { flex-direction: column; padding: 1rem; gap: 1rem; }
+  .left-pane, .right-pane { flex: none; width: 100% !important; overflow: visible !important; }
+  .reservations-container { padding: 1rem; }
+  
+  /* 2. TRANSFORMAMOS LA TARJETA EN UN BLOQUE VERTICAL */
+  .reservation-card {
+    display: flex;
+    flex-direction: column !important; /* Apila info, acciones y texto */
+    padding: 1rem !important;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  /* 3. RESETEAMOS LA INFO Y EL NOMBRE */
+  .card-info {
+    width: 100%;
+    margin: 0;
+    gap: 0.5rem;
+  }
+  
+  .info-name {
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rustic-cream-dark);
+  }
+  
+  .info-name p { font-size: 0.9rem; }
+  .info-row p { font-size: 0.8rem; }
+
+  /* 4. REUBICAMOS EL TEXTO DE POLÍTICA (¡LA CLAVE!) */
+  .cancellation-policy {
+    position: static !important; /* ¡Adiós al absolute! El texto fluye */
+    transform: none !important;
+    width: 100%;
+    margin-top: 15px !important;
+    padding-top: 10px;
+    border-top: 1px solid var(--rustic-cream-dark);
+    text-align: center;
+    font-size: 0.7rem;
+    white-space: normal !important; /* Permite que el texto salte de línea */
+    display: block;
+  }
+
+  /* 5. RESETEAMOS LAS ACCIONES Y EL BOTÓN CANCELAR */
+  .card-actions {
+    margin: 0 !important;
+    width: 100%;
+    min-width: unset;
+    flex-direction: column-reverse; /* Ponemos la política de cancelación debajo */
+    gap: 0.7rem;
+  }
+
+  .btn-delete {
+    width: 100% !important; /* Botón grande para pulsar con el dedo */
+    padding: 10px 16px;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  
+  /* 6. OTROS AJUSTES (TABS Y ESTADOS) */
+  .view-selector { gap: 8px; flex-wrap: wrap; }
+  .btn-rustic-tab { padding: 6px 14px; font-size: 0.75rem; }
+  
+  .rustic-status-box {
+  display: block;           /* Lo convierte en bloque para poder centrarlo */
+  width: fit-content;       /* Ajusta el ancho al texto, ni más ni menos */
+  margin: 1rem auto 0.5rem; /* Centra el bloque automáticamente (arriba 1rem, izq/der auto) */
+  padding: 6px 14px;
+  border: 1px solid rgba(16, 84, 83, 0.25);
+  background-color: var(--rustic-green-light);
+  color: var(--rustic-green-dark);
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.rustic-status-box strong {
+  font-weight: bold;
+  color: var(--rustic-green);
+  margin-right: 5px;
+}
+}
