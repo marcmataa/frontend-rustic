@@ -55,18 +55,18 @@ export class MyReservationComponent {
     try {
       const response = await this.myReservationsService.deleteReservation(data._id);
       if (response.success) {
-        alert('Reserva elminada correctamente');
+        alert('Reserva cancelada correctamente');
       }
     } catch (e: any) {
       if (e.response && e.response.status === 403) {
         alert('Lo sentimos, las reservas deben cancelarse con al menos 1 hora de antelación');
       } else {
-        alert('No se ha podido eliminar la reserva');
+        alert('No se ha podido cancelar la reserva');
       }
     }
   }
 
   goToReservation() {
-    this.router.navigate(['/reserva']); // O la ruta donde tengas tu formulario
+    this.router.navigate(['/reserva']); 
   }
 }

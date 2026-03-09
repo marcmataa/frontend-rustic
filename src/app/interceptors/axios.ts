@@ -29,7 +29,7 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Ejemplo: Si el servidor da 401, podrías redirigir al login
+    //Si el servidor da 401, podrías redirigir al login
     if (error.response?.status === 401) {
       console.warn('Sesión caducada o no autorizado. Cerrando sesión...');
       localStorage.removeItem('token');

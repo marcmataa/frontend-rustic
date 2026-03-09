@@ -14,7 +14,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 export const routes: Routes = [
     {
         path: '',
-        component: InicioComponent  // 👈 la home en la raíz
+        component: InicioComponent  
     },
     {
         path: 'login',
